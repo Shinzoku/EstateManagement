@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Biens{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center m-5 text-white">MODIFIER LE BIEN</h2>
+        {{form_start(form)}}
+        <div class="formBorder border border-dark p-3 mx-auto w-50 mb-5">
+            <div class="form-group">
+                <label class="text-white" for="nom">Nom:</label>
+                {{form_widget(form.noms)}}
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label class="text-white" for="numero">Numéro:</label>
+                    {{ form_widget(form.Adresses.numeros) }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="text-white" for="voie">Voie:</label>
+                    {{ form_widget(form.Adresses.voies) }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label class="text-white" for="cp">Code postal:</label>
+                    {{ form_widget(form.Adresses.cp) }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="text-white" for="ville">Ville:</label>
+                    {{ form_widget(form.Adresses.villes) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="text-white" for="description">Description:</label>
+                {{form_widget(form.descriptions, {'attr': {'rows': '6'}})}}
+            </div>
+            <div class="form-group">
+                <label class="text-white" for="surface">Surface (m²):</label>
+                {{form_widget(form.surfaces)}}
+            </div>
+            <div class="form-group">
+                <label class="text-white" for="nbrPiece">Nombre de pièce:</label>
+                {{form_widget(form.nbr_pieces)}}
+            </div>
+            <div class="form-group">
+                <label class="text-white" for="nbrChambre">Nombre de chambre:</label>
+                {{form_widget(form.nbr_chambres)}}
+            </div>
+            <div class="form-group">
+                <label class="text-white" for="loyer">Loyer (€):</label>
+                {{form_widget(form.loyers)}}
+            </div>
+            <div class="form-groupmt-3">
+                <label class="text-white mr-2">Statut:</label>
+                {{form_widget(form.statuts)}}
+            </div>
+            <div class="text-right">
+                {{ form_widget(form.ajouter, {'label': 'MODIFIER', 'attr': {'class': 'btn btn-outline-light mt-4'}}) }}
+            </div>
+        </div>
+        {{form_end(form)}}
+        <div class="text-center mt-5 mb-5">
+            <a href="{{ path('biens_show', {'id': bien.id}) }}" class="btn btn-dark">← Retour au bien</a>
+        </div>
+    </div>
+
+    
+{% endblock %}

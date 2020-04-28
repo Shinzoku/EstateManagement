@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Locataires index{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center m-5 text-white">LISTE DES LOCATAIRES</h2>
+        <div>
+            <table class="tableRaduis table table-hover table-dark text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">NOM</th>
+                        <th scope="col">PRENOM</th>
+                        <th scope="col">ACTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for locataire in locataires %}
+            <tr>
+                <td>{{ locataire.id }}</td>
+                <td>{{ locataire.noms }}</td>
+                <td>{{ locataire.prenoms }}</td>                
+                <td>
+                    
+                    <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                            <a href="{{ path('locataires_show', {'id': locataire.id}) }}" class="btn btn-outline-primary btn-sm">VOIR</a>
+                            {{ include('locataires/_delete_form.html.twig') }}
+                        </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="14">no records found</td>
+            </tr>
+        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="text-right mt-4 mb-5">
+            <a href="{{ path('locataires_new') }}" class="btn btn-outline-light">AJOUTER</a>
+        </div>
+    </div>
+{% endblock %}

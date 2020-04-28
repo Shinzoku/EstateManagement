@@ -1,0 +1,57 @@
+header {
+    background-color: #666666;
+}
+
+body {
+    background-color: #999999;
+}
+
+h1 {
+    color: darkorange;
+}
+
+.amenu {
+    color: white !important;
+}
+
+.amenu:hover {
+    color: darkorange !important;
+}
+
+.borderHover:hover {
+    border: 1px solid darkorange;
+    border-radius: 10px;
+}
+
+.formBorder {
+    border-radius: 15px;
+    background-color: #666666;
+    width: 50%;
+}
+
+.tableRaduis,
+th {
+    border-radius: 15px;
+    border: none !important;
+}
+
+@media screen and (max-width: 420px) {
+    .formBorder {
+        width: 100%;
+    }
+    .logo {
+        padding-left: 80px;
+    }
+}
+
+@media screen and (min-width: 450px) and (max-width: 800px) {
+    .formBorder {
+        width: 60%;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .formBorder {
+        width: 45%;
+    }
+}

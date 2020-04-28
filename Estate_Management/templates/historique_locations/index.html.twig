@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HistoriqueLocations index{% endblock %}
+
+{% block body %}
+    <h1>HistoriqueLocations index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Activate</th>
+                <th>Date_add</th>
+                <th>Date_update</th>
+                <th>Date_delete</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for historique_location in historique_locations %}
+            <tr>
+                <td>{{ historique_location.id }}</td>
+                <td>{{ historique_location.activate ? 'Yes' : 'No' }}</td>
+                <td>{{ historique_location.dateAdd ? historique_location.dateAdd|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ historique_location.dateUpdate ? historique_location.dateUpdate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ historique_location.dateDelete ? historique_location.dateDelete|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('historique_locations_show', {'id': historique_location.id}) }}">show</a>
+                    <a href="{{ path('historique_locations_edit', {'id': historique_location.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('historique_locations_new') }}">Create new</a>
+{% endblock %}

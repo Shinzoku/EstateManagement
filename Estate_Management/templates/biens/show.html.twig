@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Biens{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center m-5 text-white">DETAILS DU BIEN</h2>
+        <div class="row formBorder border border-dark pb-3 w-50 mx-auto">
+            <div class="col">
+                <div class="mt-2 mb-2"><span class="text-white">Nom: {{ biens.noms }}</span></div>
+                <div class="mt-2 mb-2"><span class="text-white">Adresse:</span></div>
+                <div class="mt-2 mb-2"><span class="text-white">Description: {{ biens.descriptions }}</span></div>
+                <div class="mt-2 mb-2"><span class="text-white">Surface (m²): {{ biens.surfaces }}</span></div>
+                <div class="mt-2 mb-2"><span class="text-white">Nombre de pièce: {{ biens.nbrPieces }}</span></div>
+                <div class="mt-2 mb-2"><span class="text-white">Nombre de chambre: {{ biens.nbrChambres }}</span></div>
+                <div class="row mt-2 mb-2 pl-3"><span class="text-white">Historique des locataires:</span>
+                    <ul>
+                    {% for locataire in locataires %}
+                        <li class="text-white">{{locataire.locataires.prenoms}} {{locataire.locataires.noms}}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                <div><span class="text-white">Statut: {{ biens.statuts ? 'Habité' : 'Libre' }}</span></div>
+            </div>
+        </div>
+        <div class="text-center mt-3 mb-5">
+            <a href="{{ path('biens_edit', {'id': biens.id}) }}" class="btn btn-outline-light w-50">MODIFIER</a>
+        </div>
+        <div class="text-center mt-5 mb-5">
+            <a href="{{ path('biens_index') }}" class="btn btn-dark w-50">← Retour à la liste</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HistoriqueLocations{% endblock %}
+
+{% block body %}
+    <h1>HistoriqueLocations</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ historique_location.id }}</td>
+            </tr>
+            <tr>
+                <th>Activate</th>
+                <td>{{ historique_location.activate ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Date_add</th>
+                <td>{{ historique_location.dateAdd ? historique_location.dateAdd|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_update</th>
+                <td>{{ historique_location.dateUpdate ? historique_location.dateUpdate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_delete</th>
+                <td>{{ historique_location.dateDelete ? historique_location.dateDelete|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('historique_locations_index') }}">back to list</a>
+
+    <a href="{{ path('historique_locations_edit', {'id': historique_location.id}) }}">edit</a>
+
+    {{ include('historique_locations/_delete_form.html.twig') }}
+{% endblock %}

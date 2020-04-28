@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Adresses index{% endblock %}
+
+{% block body %}
+    <h1>Adresses index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Numeros</th>
+                <th>Voies</th>
+                <th>Cp</th>
+                <th>Villes</th>
+                <th>Date_add</th>
+                <th>Date_update</th>
+                <th>Date_delete</th>
+                <th>Activate</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adress in adresses %}
+            <tr>
+                <td>{{ adress.id }}</td>
+                <td>{{ adress.numeros }}</td>
+                <td>{{ adress.voies }}</td>
+                <td>{{ adress.cp }}</td>
+                <td>{{ adress.villes }}</td>
+                <td>{{ adress.dateAdd ? adress.dateAdd|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ adress.dateUpdate ? adress.dateUpdate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ adress.dateDelete ? adress.dateDelete|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ adress.activate ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('adresses_show', {'id': adress.id}) }}">show</a>
+                    <a href="{{ path('adresses_edit', {'id': adress.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('adresses_new') }}">Create new</a>
+{% endblock %}
