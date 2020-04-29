@@ -16,20 +16,4 @@ class AdminController extends AbstractController
             'controller_name' => 'AdminController',
         ]);
     }
-
-    /**
-     * @Route("/connexion", name="security_login")
-     */
-    public function login()
-    {
-        return $this->render('admin/login.html.twig');
-    }
-
-    /**
-     * @Route("/logout", name="security_logout")
-     */
-    public function logout()
-    {
-        return $this->render('public/public.html.twig');
-    }
 }

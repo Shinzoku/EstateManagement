@@ -5,6 +5,7 @@ security:
         in_database:
             entity:
                 class: App\Entity\Locataires
+                property: email
     encoders:
         App\Entity\Locataires:
             algorithm: bcrypt
@@ -16,12 +17,15 @@ security:
             anonymous: true
             provider: in_database
             form_login:
-                login_path: security_login
-                check_path: security_login
-                default_target_path: ^/accueil
+                login_path: app_login
+                check_path: app_login
+                default_target_path: accueil
             logout:
-                path: security_logout
-                target: /accueil
+                path: app_logout
+                target: app_login
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -32,5 +36,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '^/', roles: ROLE_USER }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

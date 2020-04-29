@@ -27,9 +27,9 @@
                     <div class="col align-self-end">
                         <div class="row justify-content-end">
                         {% if app.user %}
-                            <a href="{{ path('security_logout') }}" class="btn btn-outline-light mr-3 mb-3">Déconnexion</a>
+                            <a href="{{ path('app_logout') }}" class="btn btn-outline-light mr-3 mb-3">Déconnexion</a>
                             {% else %}
-                            <a href="{{ path('security_login') }}" class="btn btn-outline-light mr-3 mb-3">Connexion</a>
+                            <a href="{{ path('app_login') }}" class="btn btn-outline-light mr-3 mb-3">Connexion</a>
                             {% endif %}
                         </div>
                     </div>
