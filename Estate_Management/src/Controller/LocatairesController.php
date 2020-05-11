@@ -5,13 +5,16 @@ namespace App\Controller;
 use App\Entity\Biens;
 use App\Entity\Locataires;
 use App\Form\LocatairesType;
+use Symfony\Component\Mime\Email;
 use App\Entity\HistoriqueLocations;
 use App\Repository\LocatairesRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 
 /**
  * @Route("/locataires")
@@ -102,4 +105,18 @@ class LocatairesController extends AbstractController
 
         return $this->redirectToRoute('locataires_index');
     }
+
+    // public function sendEmail(MailerInterface $mailer)
+    // {
+    //     $email = (new Email())
+    //         ->from('shinzoku62800@gmail.com')
+    //         ->to('shinzoku62800@gmail.com')
+    //         ->subject('Time for Symfony Mailer!')
+    //         ->text('Sending emails is fun again!')
+    //         ->html('<p>See Twig integration for better HTML integration!</p>');
+
+    //     $mailer->send($email);
+
+    //     // ...
+    // }
 }
