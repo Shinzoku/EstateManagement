@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Messages{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center m-5 text-white">DETAILS DU MESSAGE</h2>
+        <div class="row formBorder border border-dark mx-auto p-3">
+            <div class="col">
+                <div class="mt-2 mb-2"><span class="text-white">E-mail: {{ message.emails }}</span></div>
+                <div class="mt-2 mb-2"><span class="text-white">Objet: {{ message.objets }}</span></div>
+                <div class="mt-2 mb-2"><span class="text-white">Date d'envoie: {{ message.dateAdd ? message.dateAdd|date('d-m-Y') : '' }}</span></div>
+                <div class="mt-2 mb-2"><span class="text-white">Nom du bien: </span></div>
+                <div class="mt-2 mb-2"><span class="text-white">message: {{ message.demandes }}</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center m-5">
+        <a href="{{ path('messages_index') }}">← Retour à la liste des messages</a>
+    </div>
+{% endblock %}

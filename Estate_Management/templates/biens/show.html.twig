@@ -23,8 +23,11 @@
                 <div><span class="text-white">Statut: {{ biens.statuts ? 'Habité' : 'Libre' }}</span></div>
             </div>
         </div>
-        <div class="text-center mt-3 mb-5">
+        <div class="text-center mt-3">
             <a href="{{ path('biens_edit', {'id': biens.id}) }}" class="btn btn-outline-light w-50">MODIFIER</a>
+        </div>
+        <div class="text-center mt-3 mb-5">
+            <a href="{{ path('biens_edit', {'id': biens.id}) }}" class="btn btn-outline-light w-50">AJOUTER LES IMAGES</a>
         </div>
         <div class="text-center mt-5 mb-5">
             <a href="{{ path('biens_index') }}" class="btn btn-dark w-50">← Retour à la liste</a>

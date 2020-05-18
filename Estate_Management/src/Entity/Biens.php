@@ -90,12 +90,24 @@ class Biens
      */
     private $historiqueLocations;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="biens")
+     */
+    private $images;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Messages::class, mappedBy="biens")
+     */
+    private $messages;
+
     public function __construct()
     {
         $this->historiqueLocations = new ArrayCollection();
         $this->activate = 1;
         $this->date_add = new \DateTime();
         $this->date_update = new \DateTime();
+        $this->images = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -288,6 +300,68 @@ class Biens
             // set the owning side to null (unless already changed)
             if ($historiqueLocation->getBiens() === $this) {
                 $historiqueLocation->setBiens(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Images[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Images $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setBiens($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Images $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getBiens() === $this) {
+                $image->setBiens(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Messages[]
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Messages $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setBiens($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Messages $message): self
+    {
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            // set the owning side to null (unless already changed)
+            if ($message->getBiens() === $this) {
+                $message->setBiens(null);
             }
         }
 

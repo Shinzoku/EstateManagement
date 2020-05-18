@@ -1,9 +1,9 @@
 header {
-    background-color: #666666;
+    background-color: #2b78e4;
 }
 
 body {
-    background-color: #999999;
+    background-color: #6fa8dc;
 }
 
 h1 {
@@ -23,29 +23,37 @@ h1 {
     border-radius: 10px;
 }
 
-.formBorder {
+.cardBiens {
+    width: 20rem;
     border-radius: 15px;
     background-color: #666666;
-    width: 50%;
+    margin: auto;
 }
 
-.tableRaduis,
-th {
-    border-radius: 15px;
-    border: none !important;
+.cardBiens img {
+    border-radius: 15px 15px 0 0;
 }
 
-.modifImage {
+.filtre {
     border-radius: 15px;
-    background-color: #666666;
+    background-color: #999999;
+    align-items: flex-end;
+    padding-left: 20% !important;
+}
+
+.tailleMin {
+    min-width: 300px;
 }
 
 @media screen and (max-width: 420px) {
-    .formBorder {
-        width: 100%;
-    }
     .logo {
-        padding-left: 80px;
+        padding-left: 85px;
+    }
+    h1 {
+        padding-left: 60px;
+    }
+    .carousel {
+        display: none;
     }
 }
 
@@ -53,10 +61,7 @@ th {
     .formBorder {
         width: 60%;
     }
-}
-
-@media screen and (min-width: 900px) {
-    .formBorder {
-        width: 45%;
+    .carousel {
+        display: none;
     }
 }

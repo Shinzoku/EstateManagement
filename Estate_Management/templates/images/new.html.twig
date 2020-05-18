@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter Image{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2 class="text-white text-center m-5">AJOUTER UNE IMAGE</h2>
+    <div class="row">
+        <div class="col">
+            <div class="formBorder border border-dark mx-auto p-3">
+                <label class="text-white">Choisissez une image:</label>
+                {{ include('images/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+    <div class="text-center m-5">
+        <a class="btn btn-dark" href="{{ path('images_index') }}">← Retour à la liste d'images</a>
+    </div>
+</div>
+{% endblock %}

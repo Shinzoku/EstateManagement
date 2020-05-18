@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Images{% endblock %}
+
+{% block body %}
+        <div class="container">
+        <h2 class="text-center m-5 text-white">DETAILS IMAGE DU CAROUSEL</h2>
+        <div class="row">
+            <div class="col">
+                <img class="border border-dark" src="{{asset('assets/uploaded/' ~ image.noms)}}" width="701" height="424">
+            </div>
+            <div class="col">
+            {{ form_start(form) }}
+                <div class="modifImage border border-dark p-3">
+                    <div class="form-group">
+                        <label class="text-white" for="">Titre alternatif:</label>
+                        {{ form_widget(form.alt) }}
+                    </div>
+                    <div class="form-group">
+                        <label class="text-white" for="">Largeur:</label>
+                        {{ form_widget(form.width) }}
+                    </div>
+                    <div class="form-group">
+                        <label class="text-white" for="">Hauteur:</label>
+                        {{ form_widget(form.height) }}
+                    </div>
+                    <div>
+                        <label class="text-white" for="">Choisissez une image:</label>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="file" id="file">
+                        <label class="custom-file-label" for="file"></label>
+                    </div>
+                    <div class="text-right mt-4">
+                        <button type="submit" class="btn btn-outline-light">MODIFIER</button>
+                    </div>
+                </div>
+            {{ form_end(form) }}
+            </div>
+        </div>
+        <div class="text-center m-5">
+            <a class="btn btn-dark" href="{{ path('images_index') }}">← Retour à la liste d'images</a>
+        </div>
+    </div>
+{% endblock %}

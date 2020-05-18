@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Biens;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
+use App\Entity\PropertySearch;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Biens|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +19,42 @@ class BiensRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Biens::class);
+    }
+
+
+    /**
+     * Undocumented function
+     *
+     * @param PropertySearch $search
+     * @return Query
+     */
+    public function findAllVisibleQuery(PropertySearch $search): Query
+    {
+        if (!$search->getMaxPrice() && !$search->getMinSurface()){
+            $query = $this->getEntityManager()
+                ->createQuery(
+                'SELECT b FROM App:Biens b WHERE b.statuts = 0 ORDER BY b.loyers ASC'
+            );
+        }
+
+        if ($search->getMaxPrice()){
+            $query = $this->getEntityManager()
+            ->createQuery(
+            'SELECT b FROM App:Biens b WHERE b.statuts = 0 AND b.loyers <= :maxprice ORDER BY b.loyers DESC'
+        )
+            ->setParameter('maxprice', $search->getMaxPrice());
+                
+        }
+
+        if ($search->getMinSurface()){
+            $query = $this->getEntityManager()
+            ->createQuery(
+            'SELECT b FROM App:Biens b WHERE b.statuts = 0 AND b.surfaces <= :minsurface ORDER BY b.loyers DESC'
+        )
+            ->setParameter('minsurface', $search->getMinSurface());
+        }
+
+        return $query;
     }
 
     // /**
