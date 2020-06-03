@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BiensRepository")
@@ -91,7 +92,7 @@ class Biens
     private $historiqueLocations;
 
     /**
-     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="biens")
+     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="biens",cascade={"persist"})
      */
     private $images;
 
@@ -99,7 +100,7 @@ class Biens
      * @ORM\OneToMany(targetEntity=Messages::class, mappedBy="biens")
      */
     private $messages;
-
+    
     public function __construct()
     {
         $this->historiqueLocations = new ArrayCollection();
@@ -120,7 +121,8 @@ class Biens
         return $this->noms;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return (string) $this->getId();
     }
 

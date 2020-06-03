@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
-//use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class LocatairesType extends AbstractType
 {
@@ -29,7 +29,7 @@ class LocatairesType extends AbstractType
             ->add('email', EmailType::class, ['attr' => ['placeholder' => 'ex: exemple@email.com'], 'translation_domain' => false,])
             ->add('telephones', TextType::class, ['attr' => ['placeholder' => 'ex: 06-56-45-31-20'], 'translation_domain' => false,])
             ->add('situation_de_familles', TextType::class, ['attr' => ['placeholder' => 'ex: Célibataire, 1 enfant.'], 'translation_domain' => false,])
-            //->add('password', PasswordType::class)
+            ->add('password', PasswordType::class, ['required' => false,])
             // ->add('activate')
             // ->add('date_add')
             // ->add('date_update')

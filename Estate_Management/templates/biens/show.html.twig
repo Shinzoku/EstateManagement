@@ -3,34 +3,44 @@
 {% block title %}Biens{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container-fluid">
         <h2 class="text-center m-5 text-white">DETAILS DU BIEN</h2>
-        <div class="row formBorder border border-dark pb-3 w-50 mx-auto">
-            <div class="col">
-                <div class="mt-2 mb-2"><span class="text-white">Nom: {{ biens.noms }}</span></div>
-                <div class="mt-2 mb-2"><span class="text-white">Adresse:</span></div>
-                <div class="mt-2 mb-2"><span class="text-white">Description: {{ biens.descriptions }}</span></div>
-                <div class="mt-2 mb-2"><span class="text-white">Surface (m²): {{ biens.surfaces }}</span></div>
-                <div class="mt-2 mb-2"><span class="text-white">Nombre de pièce: {{ biens.nbrPieces }}</span></div>
-                <div class="mt-2 mb-2"><span class="text-white">Nombre de chambre: {{ biens.nbrChambres }}</span></div>
-                <div class="row mt-2 mb-2 pl-3"><span class="text-white">Historique des locataires:</span>
+        <div class="row w-75 mx-auto">
+            <div class="col text-center mb-5">
+                <div class="row mb-3 justify-content-center">
+                    <img src="{{asset('assets/img/maison.png')}}" class="grde-img border border-dark" width="500">
+                </div>
+                <div class="img-container row justify-content-center">
+                {% for image in images %}
+                    <img src="{{asset('assets/uploaded/' ~ image.noms)}}" class="border border-dark mr-3 ml-3" width="100" alt="vues du bien">
+                {% endfor %}
+                </div>
+            </div>
+            <div class="col formBorder border border-dark pb-3">
+                <div class="mt-2 mb-2 text-white"><span class="text-warning">Nom: </span>{{ biens.noms }}</div>
+                <div class="mt-2 mb-2 text-white"><span class="text-warning">Adresse: </span>{{ biens.adresses.numeros }} {{ biens.adresses.voies }} {{ biens.adresses.cp }} {{ biens.adresses.villes }}</div>
+                <div class="mt-2 mb-2 text-white"><span class="text-warning">Description: </span>{{ biens.descriptions }}</div>
+                <div class="mt-2 mb-2 text-white"><span class="text-warning">Surface (m²): </span>{{ biens.surfaces }}</div>
+                <div class="mt-2 mb-2 text-white"><span class="text-warning">Nombre de pièce: </span>{{ biens.nbrPieces }}</div>
+                <div class="mt-2 mb-2 text-white"><span class="text-warning">Nombre de chambre: </span>{{ biens.nbrChambres }}</div>
+                <div class="row mt-2 mb-2 pl-3"><span class="text-warning">Historique des locataires:</span>
                     <ul>
                     {% for locataire in locataires %}
                         <li class="text-white">{{locataire.locataires.prenoms}} {{locataire.locataires.noms}}</li>
                     {% endfor %}
                     </ul>
                 </div>
-                <div><span class="text-white">Statut: {{ biens.statuts ? 'Habité' : 'Libre' }}</span></div>
+                <div class="text-white"><span class="text-warning">Statut: </span>{{ biens.statuts ? 'Habité' : 'Libre' }}</div>
             </div>
         </div>
-        <div class="text-center mt-3">
-            <a href="{{ path('biens_edit', {'id': biens.id}) }}" class="btn btn-outline-light w-50">MODIFIER</a>
+        <div class="text-center mt-5">
+            <a href="{{ path('biens_edit', {'id': biens.id}) }}" class="btn btn-outline-light w-25">MODIFIER</a>
         </div>
         <div class="text-center mt-3 mb-5">
-            <a href="{{ path('biens_edit', {'id': biens.id}) }}" class="btn btn-outline-light w-50">AJOUTER LES IMAGES</a>
+            <a href="{{ path('bien_images_new', {'id': biens.id}) }}" class="btn btn-outline-light w-25">AJOUTER LES IMAGES</a>
         </div>
         <div class="text-center mt-5 mb-5">
-            <a href="{{ path('biens_index') }}" class="btn btn-dark w-50">← Retour à la liste</a>
+            <a href="{{ path('biens_index') }}" class="btn btn-dark w-25">← Retour à la liste</a>
         </div>
     </div>
 {% endblock %}

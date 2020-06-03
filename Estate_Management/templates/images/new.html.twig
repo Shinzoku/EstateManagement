@@ -8,8 +8,13 @@
     <div class="row">
         <div class="col">
             <div class="formBorder border border-dark mx-auto p-3">
-                <label class="text-white">Choisissez une image:</label>
-                {{ include('images/_form.html.twig') }}
+                {{ form_start(form) }}
+                    <label class="text-white">Choisissez une image:</label>
+                    {{ form_widget(form.noms, {'class': 'custom-file-input'}) }}
+                    <div class="text-right mt-4">
+                    <button class="btn btn-outline-light">{{ button_label|default('AJOUTER') }}</button>
+                    </div>
+                {{ form_end(form) }}
             </div>
         </div>
     </div>

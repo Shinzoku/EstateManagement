@@ -1,0 +1,15 @@
+{{ form_start(form, {'attr': {'id': 'formulaire-de-tri'}}) }}
+<div class="form-row align-item-end filtre border border-dark p-3 mx-auto">
+	<div class="col">
+		{{form_row(form.minSurface)}}
+	</div>
+	<div class="col">
+		{{form_row(form.maxPrice)}}
+	</div>
+	<div class="col">
+		<div class="form-group">
+			<button type="submit" class="btn btn-outline-light">FILTRER</button>
+		</div>
+	</div>
+</div>
+{{ form_end(form) }}

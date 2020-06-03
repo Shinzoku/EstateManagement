@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Biens;
 use App\Entity\Images;
 use App\Form\ImagesType;
 use App\Repository\ImagesRepository;
@@ -23,7 +24,7 @@ class ImagesController extends AbstractController
     public function index(ImagesRepository $imagesRepository): Response
     {
         return $this->render('images/index.html.twig', [
-            'images' => $imagesRepository->findAll(),
+            'images' => $imagesRepository->findBy(['biens' => null]),
         ]);
     }
 
@@ -38,11 +39,11 @@ class ImagesController extends AbstractController
         $form->remove('width');
         $form->remove('height');
         $form->handleRequest($request);
-
+        phpinfo();
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get('noms')->getData();
 
-            if($file){
+            if ($file) {
                 $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($filename);
                 $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
@@ -68,16 +69,17 @@ class ImagesController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    
 
-    /**
-     * @Route("/{id}", name="images_show", methods={"GET"})
-     */
-    public function show(Images $image): Response
-    {
-        return $this->render('images/show.html.twig', [
-            'image' => $image,
-        ]);
-    }
+    // /**
+    //  * @Route("/{id}", name="images_show", methods={"GET"})
+    //  */
+    // public function show(Images $image): Response
+    // {
+    //     return $this->render('images/show.html.twig', [
+    //         'image' => $image,
+    //     ]);
+    // }
 
     /**
      * @Route("/{id}/edit", name="images_edit", methods={"GET","POST"})
@@ -87,7 +89,6 @@ class ImagesController extends AbstractController
         $form = $this->createForm(ImagesType::class, $image);
         $form->remove('noms');
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -113,47 +114,4 @@ class ImagesController extends AbstractController
 
         return $this->redirectToRoute('images_index');
     }
-
-    // /**
-    //  * @Route("/Bien/{id}/new", name="bien_images_new", methods={"GET","POST"})
-    //  */
-    // public function addNewImages(Request $request, SluggerInterface $slugger): Response
-    // {
-    //     $image = new Images();
-    //     $form = $this->createForm(ImagesType::class, $image);
-    //     $form->remove('alt');
-    //     $form->remove('width');
-    //     $form->remove('height');
-    //     $form->handleRequest($request);
-
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $file = $form->get('noms')->getData();
-
-    //         if($file){
-    //             $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-    //             $safeFilename = $slugger->slug($filename);
-    //             $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
-    //             try {
-    //                 $file->move(
-    //                     $this->getParameter('upload_directory'),
-    //                     $newFilename
-    //                 );
-    //             } catch (FileException $e) {
-    //                 // ... handle exception if something happens during file upload
-    //             }
-    //         }
-    //         $entityManager = $this->getDoctrine()->getManager();
-    //         $image->setNoms($newFilename);
-            
-    //         $entityManager->persist($image);
-    //         $entityManager->flush();
-
-    //         return $this->redirectToRoute('images_index');
-    //     }
-
-    //     return $this->render('images/new.html.twig', [
-    //         'image' => $image,
-    //         'form' => $form->createView(),
-    //     ]);
-    // }
 }

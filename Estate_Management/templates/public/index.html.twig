@@ -1,46 +1,17 @@
 {% extends 'basePublic.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Accueil
+{% endblock %}
 
 {% block body %}
-    <h2 class="text-center m-5 text-white">LISTE DES BIENS</h2>
-    <div class="container">
-        {{ form_start(form) }}
-        <div class="form-row align-item-end filtre border border-dark p-3">
-            <div class="col">
-                {{form_row(form.minSurface)}}
-            </div>
-            <div class="col">
-                {{form_row(form.maxPrice)}}
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <button class="btn btn-outline-light">FILTRER</button>
-                </div>
-            </div>
-        </div>
-        {{ form_end(form) }}
-    </div>
-    <div class="container">
-        <div class="row">
-            {% for bien in biens %}
-            <div class="col">
-                <div class="card mb-5 mt-5 cardBiens border border-dark">
-                    <img src="#" class="card-img-top" alt="une photo du bien">
-                    <div class="card-body">
-                        <h5 class="card-title text-center text-white mb-4">{{bien.noms}}</h5>
-                        <h6 class="card-text text-white">Surface: {{bien.surfaces}} m²</h6>
-                        <h6 class="card-text text-white">Loyer: {{bien.loyers}} €</h6>
-                        <div class="text-right">
-                            <a href="#" class="btn btn-outline-light btn-sm">VOIR</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-            <div class="text-dark mt-3 mb-5 mx-auto">
-            {{ knp_pagination_render(biens) }}
-            </div>
-        </div>
-    </div>
+	<h2 class="text-center m-5 text-white">LISTE DES BIENS</h2>
+	<div id="filtre" class="container">
+		{{ include('public/_filtre.html.twig') }}
+	</div>
+	<div id="content" class="container">
+		{{ include('public/_content.html.twig') }}
+	</div>
+	<div id="pagination">
+		{{ include('public/_pagination.html.twig') }}
+	</div>
 {% endblock %}

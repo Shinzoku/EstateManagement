@@ -1,0 +1,38 @@
+{% extends 'basePublic.html.twig' %}
+
+{% block title %}Détails du Bien{% endblock %}
+
+{% block body %}
+    <h2 class="text-center mt-5 mb-5 text-white">DETAILS DU BIEN</h2>
+    <div class="container-fluid mb-5">
+        <div class="row w-75 mx-auto">
+            <div class="col text-center mb-5">
+                <div class="mb-3 justify-content-center">
+                    <img src="{{asset('assets/img/maison.png')}}" class="grde-img border border-dark" width="500">
+                </div>
+                <div class="img-container justify-content-center">
+                {% for image in imagesbien %}
+                    <img src="{{asset('assets/uploaded/' ~ image.noms)}}" class="border border-dark mr-3 ml-3" width="100" alt="vues du bien">
+                {% endfor %}
+                </div>
+            </div>
+            <div class="col detailsBorder border border-dark p-3 text-white ml-5 tailleMin mr-5 h-50">
+                <div class="mt-2 mb-2"><span class="text-warning">Nom: </span>{{ biens.noms }}</div>
+                <div class="mt-2 mb-2"><span class="text-warning">Adresse: </span>{{ biens.adresses.numeros }} {{ biens.adresses.voies }} {{ biens.adresses.cp }} {{ biens.adresses.villes }}</div>
+                <div class="mt-2 mb-2"><span class="text-warning">Description: </span>{{ biens.descriptions }}</div>
+                <div class="mt-2 mb-2"><span class="text-warning">Surface (m²): </span>{{ biens.surfaces }}</div>
+                <div class="mt-2 mb-2"><span class="text-warning">Nombre de pièce: </span>{{ biens.nbrPieces }}</div>
+                <div class="mt-2 mb-2"><span class="text-warning">Nombre de chambre: </span>{{ biens.nbrChambres }}</div>
+                <div id="modal1" class="modal">
+                    <div class="modal-lg">
+                        <div class="modal-content p-3 detailsBorder border border-dark"></div>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <a data-target="{{ path('messages_new', {'id': biens.id}) }}" data-tooltip="voir"
+                    class="tooltipped modal-trigger btn btn-outline-light" href="#modal1">CONTACTER</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

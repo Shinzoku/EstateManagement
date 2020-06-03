@@ -2,14 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Biens;
 use App\Entity\Locataires;
 use App\Form\LocatairesType;
-use Symfony\Component\Mime\Email;
 use App\Entity\HistoriqueLocations;
+use App\Repository\BiensRepository;
 use App\Repository\LocatairesRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,7 +32,7 @@ class LocatairesController extends AbstractController
     /**
      * @Route("/new", name="locataires_new", methods={"GET","POST"})
      */
-    public function new(Request $request/*, UserPasswordEncoderInterface $encoder*/): Response
+    public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         $locataire = new Locataires();
         $form = $this->createForm(LocatairesType::class, $locataire);
@@ -42,8 +40,10 @@ class LocatairesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            // $hash = $encoder->encodePassword($locataire, $locataire->getPassword());
-            // $locataire->setPassword($hash);
+            if (isset($_POST['password'])){
+            $hash = $encoder->encodePassword($locataire, $locataire->getPassword());
+            $locataire->setPassword($hash);
+            }
             $entityManager->persist($locataire);
             $entityManager->flush();
 
@@ -59,7 +59,7 @@ class LocatairesController extends AbstractController
     /**
      * @Route("/{id}", name="locataires_show", methods={"GET"})
      */
-    public function show(Locataires $locataire, Biens $biens): Response
+    public function show(Locataires $locataire, BiensRepository $biensRepository): Response
     {
         $locataireId = $locataire->getId(); //for the view
         $entityManager = $this->getDoctrine()->getManager();
@@ -67,6 +67,7 @@ class LocatairesController extends AbstractController
             ->findBy(['locataires' => $locataireId]);
         
         return $this->render('locataires/show.html.twig', [
+            'biensRepository' => $biensRepository->findAll(),
             'locataire' => $locataire,
             'biens' => $biens,
         ]);
@@ -105,18 +106,4 @@ class LocatairesController extends AbstractController
 
         return $this->redirectToRoute('locataires_index');
     }
-
-    // public function sendEmail(MailerInterface $mailer)
-    // {
-    //     $email = (new Email())
-    //         ->from('shinzoku62800@gmail.com')
-    //         ->to('shinzoku62800@gmail.com')
-    //         ->subject('Time for Symfony Mailer!')
-    //         ->text('Sending emails is fun again!')
-    //         ->html('<p>See Twig integration for better HTML integration!</p>');
-
-    //     $mailer->send($email);
-
-    //     // ...
-    // }
 }

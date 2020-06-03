@@ -32,13 +32,22 @@ h1 {
 
 .cardBiens img {
     border-radius: 15px 15px 0 0;
+    height: 230px;
 }
 
 .filtre {
     border-radius: 15px;
-    background-color: #999999;
+    background-color: #666666;
     align-items: flex-end;
     padding-left: 20% !important;
+    padding-bottom: 2% !important;
+    width: 97%;
+    height: 120px;
+}
+
+.detailsBorder {
+    border-radius: 15px;
+    background-color: #666666;
 }
 
 .tailleMin {

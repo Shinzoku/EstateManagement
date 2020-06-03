@@ -3,14 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\Biens;
+use App\Entity\Images;
 use App\Form\BiensType;
-use App\Entity\Locataires;
+use App\Entity\Messages;
+use App\Form\MessagesType;
 use App\Entity\HistoriqueLocations;
 use App\Repository\BiensRepository;
+use App\Repository\ImagesRepository;
 use App\Repository\AdressesRepository;
+use App\Repository\LocatairesRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -36,11 +41,11 @@ class BiensController extends AbstractController
     {
         $bien = new Biens();
         $form = $this->createForm(BiensType::class, $bien);
+        $form->remove('images');
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            $entityManager = $this->getDoctrine()->getManager();            
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($bien);
             $entityManager->flush();
 
@@ -54,17 +59,49 @@ class BiensController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="biens_show", methods={"GET"})
+     * @Route("/{id}", name="biens_show_admin", methods={"GET"})
      */
-    public function show(Locataires $locataires, Biens $biens): Response
+    public function show(LocatairesRepository $locatairesRepository, Biens $biens, ImagesRepository $imagesRepository): Response
     {
         $bienId = $biens->getId(); //for the view
         $entityManager = $this->getDoctrine()->getManager();
         $locataires = $entityManager->getRepository(HistoriqueLocations::class)
             ->findBy(['biens' => $bienId]);
-
+        
         return $this->render('biens/show.html.twig', [
+            'locatairesRepository' => $locatairesRepository->findAll(),
             'locataires' => $locataires,
+            'images' => $imagesRepository->findBy(['biens' => $bienId]),
+            'biens' => $biens,
+        ]);
+    }
+
+    /**
+     * @Route("/public/{id}", name="biens_show_public", methods={"GET"})
+     */
+    public function showPublic(Request $request, LocatairesRepository $locatairesRepository, Biens $biens, ImagesRepository $imagesRepository): Response
+    {
+        $bienId = $biens->getId(); //for the view
+        $entityManager = $this->getDoctrine()->getManager()->getRepository(HistoriqueLocations::class);
+        $locataires = $entityManager->findBy(['biens' => $bienId]);
+
+        $message = new Messages();
+        $form = $this->createForm(MessagesType::class, $message);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $message->setBiens($biens);
+            $entityManager->persist($message);
+            $entityManager->flush();
+        }
+
+        return $this->render('biens/showPublic.html.twig', [
+            'locatairesRepository' => $locatairesRepository->findAll(),
+            'images' => $imagesRepository->findBy(['biens' => null]),
+            'imagesbien' => $imagesRepository->findBy(['biens' => $bienId]),
+            'locataires' => $locataires,
+            'form' => $form->createView(),
             'biens' => $biens,
         ]);
     }
@@ -75,6 +112,7 @@ class BiensController extends AbstractController
     public function edit(Request $request, Biens $bien): Response
     {
         $form = $this->createForm(BiensType::class, $bien);
+        $form->remove('images');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -101,5 +139,72 @@ class BiensController extends AbstractController
         }
 
         return $this->redirectToRoute('biens_index');
+    }
+
+
+    /**
+     * @Route("/{id}/new/images", name="bien_images_new", methods={"GET","POST"})
+     */
+    public function addNewImages(Request $request, Biens $biens): Response
+    {
+        
+        $form = $this->createForm(BiensType::class, $biens);
+        $form->remove('noms')
+            ->remove('descriptions')
+            ->remove('nbr_pieces')
+            ->remove('nbr_chambres')
+            ->remove('surfaces')
+            ->remove('loyers')
+            ->remove('statuts')
+            ->remove('Adresses')
+            ->remove('ajouter')
+            ->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $images = $form->get('images')->getData(); // On récupère les images transmises
+            //dd($images);
+            // On boucle sur les images
+            foreach ($images as $image) {
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('upload_directory'),
+                    $fichier
+                );
+                // On crée l'image dans la base de données
+                $img = new Images();
+                $img->setNoms($fichier);
+                $biens->addImage($img);
+            }
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($biens);
+            $entityManager->flush();
+            
+            return $this->redirectToRoute('biens_show_admin', ['id' => $biens->getId()]);
+        }
+
+        return $this->render('images/addimagesBien.html.twig', [
+            'biens' => $biens,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/supprime/image/{id}", name="biens_delete_image", methods={"DELETE"})
+     */
+    public function deleteImage(Images $image, Request $request): Response
+    {
+        // On vérifie si le token est valide
+        if ($this->isCsrfTokenValid('delete'.$image->getId(), $request->request->get('_token'))) {
+            // On récupère le nom de l'image
+            $nom = $image->getNoms();
+            // On supprime le fichier
+            unlink($this->getParameter('upload_directory').'/'.$nom);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($image);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('biens_edit', ['id' => $image->getBiens()->getId()]);
     }
 }

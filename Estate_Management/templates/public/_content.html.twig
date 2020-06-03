@@ -1,0 +1,23 @@
+<div class="row">
+	{% for bien in biens %}
+		<div class="col">
+			<div class="card mb-5 mt-5 cardBiens border border-dark">
+				{% for image in bien.images|slice(0, 1) %}
+					<img src="{{asset('assets/uploaded/' ~ image.noms)}}" class="card-img-top" alt="une photo du bien">
+				{% endfor %}
+				<div class="card-body">
+					<h5 class="card-title text-center text-white mb-4">{{bien.noms}}</h5>
+					<h6 class="card-text text-white">Surface:
+						{{bien.surfaces}}
+						m²</h6>
+					<h6 class="card-text text-white">Loyer:
+						{{bien.loyers}}
+						€</h6>
+					<div class="text-right">
+						<a href="{{ path('biens_show_public', {'id': bien.id}) }}" class="btn btn-outline-light btn-sm">VOIR</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+</div>

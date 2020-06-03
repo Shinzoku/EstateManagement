@@ -2,11 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\ImagesRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ImagesRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\ImagesRepository")
  */
 class Images
 {
@@ -73,17 +72,22 @@ class Images
     {
         return $this->id;
     }
-
+    
     public function getNoms(): ?string
     {
         return $this->noms;
     }
-
+    
     public function setNoms(string $noms): self
     {
         $this->noms = $noms;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->getNoms();
     }
 
     public function getAlt(): ?string

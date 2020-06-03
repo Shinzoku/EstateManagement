@@ -25,7 +25,7 @@
                 <td>{{ bien.statuts ? 'Habitée' : 'Libre' }}</td>
                 <td>
                     <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                    <a href="{{ path('biens_show', {'id': bien.id}) }}" class="btn btn-outline-primary btn-sm">VOIR</a>
+                    <a href="{{ path('biens_show_admin', {'id': bien.id}) }}" class="btn btn-outline-primary btn-sm">VOIR</a>
                     {{ include('biens/_delete_form.html.twig') }}
                     </div>
                 </td>

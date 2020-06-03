@@ -9,7 +9,7 @@ class PropertySearch {
     /**
      *
      * @var int|null
-     * @Assert(min=200, max=1000)
+     * @Assert(min=300, max=1000)
      */
     private $maxPrice;
 
@@ -39,7 +39,7 @@ class PropertySearch {
      *
      * @return  self
      */ 
-    public function setMaxPrice(int $maxPrice): PropertySearch
+    public function setMaxPrice($maxPrice): PropertySearch
     {
         $this->maxPrice = $maxPrice;
 
@@ -63,7 +63,7 @@ class PropertySearch {
      *
      * @return  self
      */ 
-    public function setMinSurface(int $minSurface): PropertySearch
+    public function setMinSurface($minSurface): PropertySearch
     {
         $this->minSurface = $minSurface;
 

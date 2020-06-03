@@ -5,19 +5,27 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center m-5 text-white">AJOUTER LES IMAGES DU BIEN</h2>
-        <form name="addImage" method="POST" class="formBorder border border-dark pb-3 w-50 mx-auto">
+        <div name="addImage" class="formBorder border border-dark pb-3 w-50 mx-auto">
             <div class="">
-                <div class="mt-2 mb-2"><span class="text-white">Nom: {{ biens.noms }}</span></div>
-                <div class="mt-2 mb-2"></div>
-                
-                
+                <div class="mt-2 mb-2 text-center"><span class="text-white">Nom du bien: {{ biens.noms }} </span></div>
+                <div class="mt-2 mb-2">
+                {{form_start(form)}}
+                    <div class="p-3">
+                        <label class="text-white">Selectionnez les images:</label>
+                        {{form_widget(form.images, {'class': 'custom-file-input'})}}
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-outline-light w-50">AJOUTER</button>
+                        </div>
+                    </div>
+                {{form_end(form)}}
+                </div>
             </div>
-        <div class="text-center mt-3">
-            <button type="submit" class="btn btn-outline-light w-50">AJOUTER</button>
         </div>
+        <div class="text-center mt-5">
+            <a href="{{path('biens_show_admin', {'id': biens.id})}}" class="btn btn-dark w-50">← Retour au bien</a>
         </div>
-        <div class="text-center mt-5 mb-5">
-            <a href="{{ path('biens_show', {'id': biens.id}) }}" class="btn btn-dark w-50">← Retour à la liste</a>
+        <div class="text-center mt-3 mb-5">
+            <a href="{{path('biens_index')}}" class="btn btn-dark w-50">← Retour à la liste</a>
         </div>
     </div>
 {% endblock %}
