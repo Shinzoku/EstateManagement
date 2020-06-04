@@ -54,6 +54,12 @@ h1 {
     min-width: 300px;
 }
 
+.contact {
+    width: 800px;
+    margin-left: 45%;
+    margin-top: 15px;
+}
+
 @media screen and (max-width: 420px) {
     .logo {
         padding-left: 85px;

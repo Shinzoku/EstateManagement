@@ -44,7 +44,7 @@ $("#formulaire-de-tri").on("submit", function (e) {
     e.preventDefault();
     let data = $(this).serialize(); // Récupère les données de chaque champ
     $.ajax({
-        url: "/accueil/ajax/public",
+        url: "/accueil/public/ajax",
         type: "POST",
         data: data, // On désire recevoir du HTML
         success: function (code_html, statut) {

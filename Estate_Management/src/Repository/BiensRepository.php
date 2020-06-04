@@ -30,27 +30,26 @@ class BiensRepository extends ServiceEntityRepository
      */
     public function findAllVisibleQuery(PropertySearch $search): Query
     {
-        if (!$search->getMaxPrice() && !$search->getMinSurface()){
+        if (!$search->getMaxPrice() && !$search->getMinSurface()) {
             $query = $this->getEntityManager()
                 ->createQuery(
-                'SELECT b FROM App:Biens b WHERE b.statuts = 0 ORDER BY b.loyers ASC'
-            );
+                    'SELECT b FROM App:Biens b WHERE b.statuts = 0 ORDER BY b.loyers ASC'
+                );
         }
 
-        if ($search->getMaxPrice()){
+        if ($search->getMaxPrice()) {
             $query = $this->getEntityManager()
             ->createQuery(
-            'SELECT b FROM App:Biens b WHERE b.statuts = 0 AND b.loyers <= :maxprice ORDER BY b.loyers DESC'
-        )
+                'SELECT b FROM App:Biens b WHERE b.statuts = 0 AND b.loyers <= :maxprice ORDER BY b.loyers DESC'
+            )
             ->setParameter('maxprice', $search->getMaxPrice());
-                
         }
 
-        if ($search->getMinSurface()){
+        if ($search->getMinSurface()) {
             $query = $this->getEntityManager()
             ->createQuery(
-            'SELECT b FROM App:Biens b WHERE b.statuts = 0 AND b.surfaces <= :minsurface ORDER BY b.loyers DESC'
-        )
+                'SELECT b FROM App:Biens b WHERE b.statuts = 0 AND b.surfaces <= :minsurface ORDER BY b.loyers DESC'
+            )
             ->setParameter('minsurface', $search->getMinSurface());
         }
 

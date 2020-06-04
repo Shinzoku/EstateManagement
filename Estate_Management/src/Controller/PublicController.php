@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Locataires;
+use App\Form\LocatairesType;
 use App\Entity\PropertySearch;
 use App\Form\PropertySearchType;
 use App\Repository\BiensRepository;
@@ -45,7 +47,7 @@ class PublicController extends AbstractController
     }
 
     /**
-     * @Route("/accueil/ajax/public")
+     * @Route("/accueil/public/ajax", name="accueil_public_ajax")
      */
     public function getBiensByFiltre(Request $request, PaginatorInterface $paginator, BiensRepository $repository)
     {
@@ -73,5 +75,34 @@ class PublicController extends AbstractController
                 'biens' => $biens,
             ]);
         }
+    }
+
+    /**
+     * @Route("accueil/public/newsletter/inscription", name="newsletter_new", methods={"GET","POST"})
+     */
+    public function new(Request $request, ImagesRepository $imagesRepository): Response
+    {
+        $locataire = new Locataires();
+        $form = $this->createForm(LocatairesType::class, $locataire);
+        $form->remove('date_de_naissances')
+            ->remove('lieu_de_naissances')
+            ->remove('telephones')
+            ->remove('situation_de_familles')
+            ->remove('password')
+            ->remove('newsletter')
+            ->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($locataire);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('accueil_public');
+        }
+
+        return $this->render('public/newsletter.html.twig', [
+            'images' => $imagesRepository->findBy(['biens' => null]),
+            'form' => $form->createView(),
+        ]);
     }
 }

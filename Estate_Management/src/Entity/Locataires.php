@@ -30,12 +30,12 @@ class Locataires implements UserInterface
     private $prenoms;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $date_de_naissances;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $lieu_de_naissances;
 
@@ -45,12 +45,12 @@ class Locataires implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $telephones;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $situation_de_familles;
 
@@ -79,15 +79,17 @@ class Locataires implements UserInterface
      */
     private $date_delete;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Biens", mappedBy="locataires")
-     */
-    private $biens;
+    
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\HistoriqueLocations", mappedBy="locataires")
      */
     private $historiqueLocations;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $newsletter;
 
     public function __construct()
     {
@@ -96,6 +98,7 @@ class Locataires implements UserInterface
         $this->activate = 1;
         $this->date_add = new \DateTime();
         $this->date_update = new \DateTime();
+        $this->newsletter = 1;
     }
 
     public function getId(): ?int
@@ -115,7 +118,8 @@ class Locataires implements UserInterface
         return $this;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return (string) $this->getId();
     }
 
@@ -313,15 +317,32 @@ class Locataires implements UserInterface
         return $this;
     }
     
-    public function getSalt(){}
+    public function getSalt()
+    {
+    }
     public function getRoles(): array
     {
         $roles = [];
         $roles[] = 'ROLE_USER';
         return array_unique($roles);
     }
-    public function getUsername(){
+    public function getUsername()
+    {
         return $this->email;
     }
-    public function eraseCredentials(){}
+    public function eraseCredentials()
+    {
+    }
+
+    public function getNewsletter(): ?bool
+    {
+        return $this->newsletter;
+    }
+
+    public function setNewsletter(bool $newsletter): self
+    {
+        $this->newsletter = $newsletter;
+
+        return $this;
+    }
 }

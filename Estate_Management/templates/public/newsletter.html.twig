@@ -1,0 +1,32 @@
+{% extends 'basePublic.html.twig' %}
+
+{% block title %}Inscription à la newsletter
+{% endblock %}
+
+{% block body %}
+	<h2 class="text-center m-5 text-white">NEWSLETTER</h2>
+	<div class="container mb-5">
+        <div class="row mx-auto w-50">
+            <div class="col border border-dark detailsBorder p-3">
+            {{form_start(form)}}
+
+            <div>
+            <label class="text-white">Nom:</label>
+            {{form_widget(form.noms)}}
+            </div>
+            <div>
+            <label class="text-white mt-4">Prénom:</label>
+            {{form_widget(form.prenoms)}}
+            </div>
+            <div>
+            <label class="text-white mt-4">E-mail:</label>
+            {{form_widget(form.email)}}
+            </div>
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-outline-light w-100">JE M'INSCRIS !</button>
+            </div>
+            {{form_end(form)}}
+            </div>
+        </div>
+	</div>
+{% endblock %}

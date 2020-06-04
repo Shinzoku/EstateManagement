@@ -12,12 +12,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/messages")
+ * @Route("/messages", name="messages_")
  */
 class MessagesController extends AbstractController
 {
     /**
-     * @Route("/", name="messages_index", methods={"GET"})
+     * @Route("/", name="index", methods={"GET"})
      */
     public function index(MessagesRepository $messagesRepository): Response
     {
@@ -27,7 +27,7 @@ class MessagesController extends AbstractController
     }
 
     /**
-     * @Route("/new/{id}", name="messages_new", methods={"GET","POST"})
+     * @Route("/new/{id}", name="new", methods={"GET","POST"})
      */
     public function new(Request $request, Biens $biens): Response
     {
@@ -40,7 +40,7 @@ class MessagesController extends AbstractController
             $message->setBiens($biens);
             $entityManager->persist($message);
             $entityManager->flush();
-            $this->addFlash('success', 'Votre message a été envoyé.');
+            
             return $this->redirectToRoute('biens_show_public', ['id' => $biens->getid()]);
         }
 
@@ -51,11 +51,10 @@ class MessagesController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="messages_show", methods={"GET"})
+     * @Route("/{id}", name="show", methods={"GET"})
      */
     public function show(Messages $message): Response
     {
-        
         $bienId = $message->getbiens();
         
         return $this->render('messages/show.html.twig', [
@@ -64,28 +63,8 @@ class MessagesController extends AbstractController
         ]);
     }
 
-    // /**
-    //  * @Route("/{id}/edit", name="messages_edit", methods={"GET","POST"})
-    //  */
-    // public function edit(Request $request, Messages $message): Response
-    // {
-    //     $form = $this->createForm(MessagesType::class, $message);
-    //     $form->handleRequest($request);
-
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $this->getDoctrine()->getManager()->flush();
-
-    //         return $this->redirectToRoute('messages_index');
-    //     }
-
-    //     return $this->render('messages/edit.html.twig', [
-    //         'message' => $message,
-    //         'form' => $form->createView(),
-    //     ]);
-    // }
-
     /**
-     * @Route("/{id}", name="messages_delete", methods={"DELETE"})
+     * @Route("/{id}", name="delete", methods={"DELETE"})
      */
     public function delete(Request $request, Messages $message): Response
     {

@@ -47,4 +47,14 @@ class LocatairesRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function foundEmail()
+    {
+        $query = $this->getEntityManager()
+            ->createQuery(
+                'SELECT email FROM App:Locataires l WHERE l.newsletter = 1'
+            );
+            
+        return $query;
+    }
 }

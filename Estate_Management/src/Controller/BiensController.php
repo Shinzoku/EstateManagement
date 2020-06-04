@@ -13,18 +13,21 @@ use App\Repository\ImagesRepository;
 use App\Repository\AdressesRepository;
 use App\Repository\LocatairesRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Address;
 
 /**
- * @Route("/biens")
+ * @Route("/biens", name="biens_")
  */
 class BiensController extends AbstractController
 {
     /**
-     * @Route("/", name="biens_index", methods={"GET"})
+     * @Route("/", name="index", methods={"GET"})
      */
     public function index(BiensRepository $biensRepository, AdressesRepository $adressesRepository): Response
     {
@@ -35,20 +38,30 @@ class BiensController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="biens_new", methods={"GET","POST"})
+     * @Route("/new", name="new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, MailerInterface $mailer, LocatairesRepository $LocatairesRepository): Response
     {
         $bien = new Biens();
         $form = $this->createForm(BiensType::class, $bien);
         $form->remove('images');
         $form->handleRequest($request);
         
+        // $mails = $LocatairesRepository->foundEmail();
+        // dd($mails);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($bien);
             $entityManager->flush();
 
+            // $email = (new Email())
+            //     ->from(new Address('shinzoku62800@gmail.com', 'Estate Management'))
+            //     ->to($mail)
+            //     ->subject('Nouveauté sur Estate Management')
+            //     ->text('Il y a un nouvelle habitat qui a été ajouté. Venez vite voir!!!');
+                
+            // $mailer->send($email);
+            
             return $this->redirectToRoute('biens_index');
         }
 
@@ -59,7 +72,7 @@ class BiensController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="biens_show_admin", methods={"GET"})
+     * @Route("/{id}", name="show_admin", methods={"GET"})
      */
     public function show(LocatairesRepository $locatairesRepository, Biens $biens, ImagesRepository $imagesRepository): Response
     {
@@ -77,7 +90,7 @@ class BiensController extends AbstractController
     }
 
     /**
-     * @Route("/public/{id}", name="biens_show_public", methods={"GET"})
+     * @Route("/public/{id}", name="show_public", methods={"GET"})
      */
     public function showPublic(Request $request, LocatairesRepository $locatairesRepository, Biens $biens, ImagesRepository $imagesRepository): Response
     {
@@ -107,7 +120,7 @@ class BiensController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="biens_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Biens $bien): Response
     {
@@ -128,7 +141,7 @@ class BiensController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="biens_delete", methods={"DELETE"})
+     * @Route("/{id}", name="delete", methods={"DELETE"})
      */
     public function delete(Request $request, Biens $bien): Response
     {
@@ -143,11 +156,10 @@ class BiensController extends AbstractController
 
 
     /**
-     * @Route("/{id}/new/images", name="bien_images_new", methods={"GET","POST"})
+     * @Route("/{id}/new/images", name="images_new", methods={"GET","POST"})
      */
     public function addNewImages(Request $request, Biens $biens): Response
     {
-        
         $form = $this->createForm(BiensType::class, $biens);
         $form->remove('noms')
             ->remove('descriptions')
@@ -191,7 +203,7 @@ class BiensController extends AbstractController
     }
 
     /**
-     * @Route("/supprime/image/{id}", name="biens_delete_image", methods={"DELETE"})
+     * @Route("/supprime/image/{id}", name="delete_image", methods={"DELETE"})
      */
     public function deleteImage(Images $image, Request $request): Response
     {

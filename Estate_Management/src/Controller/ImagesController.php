@@ -14,12 +14,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 /**
- * @Route("/images")
+ * @Route("/image", name="images_")
  */
 class ImagesController extends AbstractController
 {
     /**
-     * @Route("/", name="images_index", methods={"GET"})
+     * @Route("/", name="index", methods={"GET"})
      */
     public function index(ImagesRepository $imagesRepository): Response
     {
@@ -29,7 +29,7 @@ class ImagesController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="images_new", methods={"GET","POST"})
+     * @Route("/new", name="new", methods={"GET","POST"})
      */
     public function new(Request $request, SluggerInterface $slugger): Response
     {
@@ -39,7 +39,7 @@ class ImagesController extends AbstractController
         $form->remove('width');
         $form->remove('height');
         $form->handleRequest($request);
-        phpinfo();
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get('noms')->getData();
 
@@ -69,20 +69,9 @@ class ImagesController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    
-
-    // /**
-    //  * @Route("/{id}", name="images_show", methods={"GET"})
-    //  */
-    // public function show(Images $image): Response
-    // {
-    //     return $this->render('images/show.html.twig', [
-    //         'image' => $image,
-    //     ]);
-    // }
 
     /**
-     * @Route("/{id}/edit", name="images_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Images $image): Response
     {
@@ -102,7 +91,7 @@ class ImagesController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="images_delete", methods={"DELETE"})
+     * @Route("/{id}", name="delete", methods={"DELETE"})
      */
     public function delete(Request $request, Images $image): Response
     {

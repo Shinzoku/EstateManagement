@@ -12,6 +12,7 @@
                         <th scope="col">ID</th>
                         <th scope="col">NOM</th>
                         <th scope="col">PRENOM</th>
+                        <th scope="col">NEWSLETTER</th>
                         <th scope="col">ACTION</th>
                     </tr>
                 </thead>
@@ -21,6 +22,7 @@
                 <td>{{ locataire.id }}</td>
                 <td>{{ locataire.noms }}</td>
                 <td>{{ locataire.prenoms }}</td>                
+                <td>{{ locataire.newsletter ? 'Oui' : 'Non' }}</td>                
                 <td>
                     
                     <div class="btn-group btn-group-sm" role="group" aria-label="...">
@@ -31,7 +33,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="14">no records found</td>
+                <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
                 </tbody>

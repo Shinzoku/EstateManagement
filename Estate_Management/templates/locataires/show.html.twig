@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center m-5 text-white">DETAILS DU LOCATAIRES</h2>
+        <h2 class="text-center m-5 text-white">DETAILS DU LOCATAIRE</h2>
         <div class="row formBorder border border-dark pb-3 w-50 mx-auto">
             <div class="col">
                 <div class="mt-2 mb-2"><span class="text-white">Nom: {{ locataire.noms }}</span></div>
@@ -14,20 +14,21 @@
                 <div class="mt-2 mb-2"><span class="text-white">E-mail: {{ locataire.email }}</span></div>
                 <div class="mt-2 mb-2"><span class="text-white">Téléphone: {{ locataire.telephones }}</span></div>
                 <div class="mt-2 mb-2"><span class="text-white">Situation de famille: {{ locataire.situationDeFamilles }}</span></div>
-                <div class="row mt-2 mb-2 pl-3"><span class="text-white">Historique des locataires:</span>
+                <div class="row mt-2 pl-3"><span class="text-white">Historique des locataires:</span>
                     <ul>
                     {% for bien in biens %}
                         <li class="text-white">{{ bien.biens.noms }}</li>
                     {% endfor %}
                     </ul>
                 </div>
+                <div class="mb-2"><span class="text-white">Newsletter: {{ locataire.newsletter ? 'Oui' : 'Non' }}</span></div>
             </div>
         </div>
         <div class="text-center mt-3 mb-2">
-            <a href="{{ path('locataires_edit', {'id': locataire.id}) }}" class="btn btn-outline-light w-50">MODIFIER</a>
+            <a href="{{ path('locataires_edit', {'id': locataire.id}) }}" class="btn btn-outline-light w-50">MODIFIER INFORMATIONS</a>
         </div>
         <div class="text-center mt-2 mb-5">
-            <a href="{{ path('add_location', {'id': locataire.id}) }}" class="btn btn-outline-light w-50">AJOUTER UNE NOUVELLE LOCATION</a>
+            <a href="{{ path('historique_locations_add_location', {'id': locataire.id}) }}" class="btn btn-outline-light w-50">AJOUTER UNE NOUVELLE LOCATION</a>
         </div>
         <div class="text-center mt-5 mb-5">
             <a href="{{ path('locataires_index') }}" class="btn btn-dark w-50">← Retour à la liste</a>

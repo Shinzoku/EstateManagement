@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Locataires;
 use App\Entity\HistoriqueLocations;
 use App\Form\HistoriqueLocationsType;
@@ -13,12 +12,12 @@ use App\Repository\HistoriqueLocationsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/historique/locations")
+ * @Route("/historique/locations", name="historique_locations_")
  */
 class HistoriqueLocationsController extends AbstractController
 {
     /**
-     * @Route("/", name="historique_locations_index", methods={"GET"})
+     * @Route("/", name="index", methods={"GET"})
      */
     public function index(HistoriqueLocationsRepository $historiqueLocationsRepository): Response
     {
@@ -30,7 +29,7 @@ class HistoriqueLocationsController extends AbstractController
     /**
      * @Route("/{id}/new", name="add_location", methods={"GET","POST"})
      */
-    public function new(Request $request,Locataires $locataires): Response
+    public function new(Request $request, Locataires $locataires): Response
     {
         $historiqueLocation = new HistoriqueLocations();
         $form = $this->createForm(HistoriqueLocationsType::class, $historiqueLocation);
@@ -53,7 +52,7 @@ class HistoriqueLocationsController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="historique_locations_show", methods={"GET"})
+     * @Route("/{id}", name="show", methods={"GET"})
      */
     public function show(HistoriqueLocations $historiqueLocation): Response
     {

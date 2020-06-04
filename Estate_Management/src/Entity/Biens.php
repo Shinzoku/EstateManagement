@@ -80,11 +80,7 @@ class Biens
      */
     private $Adresses;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Locataires", inversedBy="biens", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $locataires;
+    
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\HistoriqueLocations", mappedBy="biens")
