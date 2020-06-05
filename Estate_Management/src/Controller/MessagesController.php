@@ -46,7 +46,7 @@ class MessagesController extends AbstractController
 
         return $this->render('messages/_form.html.twig', [
             'biens' => $biens,
-            'form' => $form->createView(),
+            'form'  => $form->createView(),
         ]);
     }
 
@@ -58,7 +58,7 @@ class MessagesController extends AbstractController
         $bienId = $message->getbiens();
         
         return $this->render('messages/show.html.twig', [
-            'bien' => $bienId,
+            'bien'    => $bienId,
             'message' => $message,
         ]);
     }

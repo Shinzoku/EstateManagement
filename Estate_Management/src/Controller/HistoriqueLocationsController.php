@@ -45,9 +45,9 @@ class HistoriqueLocationsController extends AbstractController
         }
 
         return $this->render('historique_locations/new.html.twig', [
-            'locataires' => $locataires,
+            'locataires'          => $locataires,
             'historique_location' => $historiqueLocation,
-            'form' => $form->createView(),
+            'form'                => $form->createView(),
         ]);
     }
 
@@ -60,38 +60,4 @@ class HistoriqueLocationsController extends AbstractController
             'historique_location' => $historiqueLocation,
         ]);
     }
-
-    // /**
-    //  * @Route("/{id}/edit", name="historique_locations_edit", methods={"GET","POST"})
-    //  */
-    // public function edit(Request $request, HistoriqueLocations $historiqueLocation): Response
-    // {
-    //     $form = $this->createForm(HistoriqueLocationsType::class, $historiqueLocation);
-    //     $form->handleRequest($request);
-
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $this->getDoctrine()->getManager()->flush();
-
-    //         return $this->redirectToRoute('historique_locations_index');
-    //     }
-
-    //     return $this->render('historique_locations/edit.html.twig', [
-    //         'historique_location' => $historiqueLocation,
-    //         'form' => $form->createView(),
-    //     ]);
-    // }
-
-    // /**
-    //  * @Route("/{id}", name="historique_locations_delete", methods={"DELETE"})
-    //  */
-    // public function delete(Request $request, HistoriqueLocations $historiqueLocation): Response
-    // {
-    //     if ($this->isCsrfTokenValid('delete'.$historiqueLocation->getId(), $request->request->get('_token'))) {
-    //         $entityManager = $this->getDoctrine()->getManager();
-    //         $entityManager->remove($historiqueLocation);
-    //         $entityManager->flush();
-    //     }
-
-    //     return $this->redirectToRoute('historique_locations_index');
-    // }
 }

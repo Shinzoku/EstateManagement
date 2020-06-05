@@ -102,7 +102,7 @@ class PublicController extends AbstractController
 
         return $this->render('public/newsletter.html.twig', [
             'images' => $imagesRepository->findBy(['biens' => null]),
-            'form' => $form->createView(),
+            'form'   => $form->createView(),
         ]);
     }
 }

@@ -51,7 +51,7 @@ class LocatairesController extends AbstractController
 
         return $this->render('locataires/new.html.twig', [
             'locataire' => $locataire,
-            'form' => $form->createView(),
+            'form'      => $form->createView(),
         ]);
     }
 
@@ -67,8 +67,8 @@ class LocatairesController extends AbstractController
         
         return $this->render('locataires/show.html.twig', [
             'biensRepository' => $biensRepository->findAll(),
-            'locataire' => $locataire,
-            'biens' => $biens,
+            'locataire'       => $locataire,
+            'biens'           => $biens,
         ]);
     }
 
@@ -82,10 +82,12 @@ class LocatairesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            
             if (isset($_POST['password'])) {
                 $hash = $encoder->encodePassword($locataire, $locataire->getPassword());
                 $locataire->setPassword($hash);
             }
+
             $entityManager->persist($locataire);
             $entityManager->flush();
             return $this->redirectToRoute('locataires_index');
@@ -93,7 +95,7 @@ class LocatairesController extends AbstractController
 
         return $this->render('locataires/edit.html.twig', [
             'locataire' => $locataire,
-            'form' => $form->createView(),
+            'form'      => $form->createView(),
         ]);
     }
 

@@ -4,22 +4,21 @@ namespace App\Controller;
 
 use App\Entity\Biens;
 use App\Entity\Images;
-use App\Form\BiensType;
 use App\Entity\Messages;
-use App\Form\MessagesType;
 use App\Entity\HistoriqueLocations;
+use App\Form\BiensType;
+use App\Form\MessagesType;
 use App\Repository\BiensRepository;
 use App\Repository\ImagesRepository;
 use App\Repository\AdressesRepository;
 use App\Repository\LocatairesRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Address;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/biens", name="biens_")
@@ -32,7 +31,7 @@ class BiensController extends AbstractController
     public function index(BiensRepository $biensRepository, AdressesRepository $adressesRepository): Response
     {
         return $this->render('biens/index.html.twig', [
-            'biens' => $biensRepository->findAll(),
+            'biens'    => $biensRepository->findAll(),
             'adresses' => $adressesRepository->findAll(),
         ]);
     }
@@ -47,20 +46,20 @@ class BiensController extends AbstractController
         $form->remove('images');
         $form->handleRequest($request);
         
-        // $mails = $LocatairesRepository->foundEmail();
-        // dd($mails);
+        $mails = $LocatairesRepository->foundEmail()->getParameters();
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($bien);
             $entityManager->flush();
 
-            // $email = (new Email())
-            //     ->from(new Address('shinzoku62800@gmail.com', 'Estate Management'))
-            //     ->to($mail)
-            //     ->subject('Nouveauté sur Estate Management')
-            //     ->text('Il y a un nouvelle habitat qui a été ajouté. Venez vite voir!!!');
+            $email = (new Email())
+                ->from(new Address('shinzoku62800@gmail.com', 'Estate Management'))
+                ->to(...$mails)
+                ->subject('Nouveauté sur Estate Management')
+                ->text('Il y a une nouvelle habitation qui a été ajouté. Venez vite voir!!!');
                 
-            // $mailer->send($email);
+            $mailer->send($email);
             
             return $this->redirectToRoute('biens_index');
         }
@@ -83,9 +82,9 @@ class BiensController extends AbstractController
         
         return $this->render('biens/show.html.twig', [
             'locatairesRepository' => $locatairesRepository->findAll(),
-            'locataires' => $locataires,
-            'images' => $imagesRepository->findBy(['biens' => $bienId]),
-            'biens' => $biens,
+            'locataires'           => $locataires,
+            'images'               => $imagesRepository->findBy(['biens' => $bienId]),
+            'biens'                => $biens,
         ]);
     }
 
@@ -111,11 +110,11 @@ class BiensController extends AbstractController
 
         return $this->render('biens/showPublic.html.twig', [
             'locatairesRepository' => $locatairesRepository->findAll(),
-            'images' => $imagesRepository->findBy(['biens' => null]),
-            'imagesbien' => $imagesRepository->findBy(['biens' => $bienId]),
-            'locataires' => $locataires,
-            'form' => $form->createView(),
-            'biens' => $biens,
+            'images'               => $imagesRepository->findBy(['biens' => null]),
+            'imagesbien'           => $imagesRepository->findBy(['biens' => $bienId]),
+            'locataires'           => $locataires,
+            'form'                 => $form->createView(),
+            'biens'                => $biens,
         ]);
     }
 
@@ -125,8 +124,8 @@ class BiensController extends AbstractController
     public function edit(Request $request, Biens $bien): Response
     {
         $form = $this->createForm(BiensType::class, $bien);
-        $form->remove('images');
-        $form->handleRequest($request);
+        $form->remove('images')
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
@@ -153,7 +152,6 @@ class BiensController extends AbstractController
 
         return $this->redirectToRoute('biens_index');
     }
-
 
     /**
      * @Route("/{id}/new/images", name="images_new", methods={"GET","POST"})
@@ -198,7 +196,7 @@ class BiensController extends AbstractController
 
         return $this->render('images/addimagesBien.html.twig', [
             'biens' => $biens,
-            'form' => $form->createView(),
+            'form'  => $form->createView(),
         ]);
     }
 
@@ -217,6 +215,7 @@ class BiensController extends AbstractController
             $entityManager->remove($image);
             $entityManager->flush();
         }
+
         return $this->redirectToRoute('biens_edit', ['id' => $image->getBiens()->getId()]);
     }
 }

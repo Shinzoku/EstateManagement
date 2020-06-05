@@ -35,10 +35,10 @@ class ImagesController extends AbstractController
     {
         $image = new Images();
         $form = $this->createForm(ImagesType::class, $image);
-        $form->remove('alt');
-        $form->remove('width');
-        $form->remove('height');
-        $form->handleRequest($request);
+        $form->remove('alt')
+            ->remove('width')
+            ->remove('height')
+            ->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get('noms')->getData();
@@ -66,7 +66,7 @@ class ImagesController extends AbstractController
 
         return $this->render('images/new.html.twig', [
             'image' => $image,
-            'form' => $form->createView(),
+            'form'  => $form->createView(),
         ]);
     }
 
@@ -86,7 +86,7 @@ class ImagesController extends AbstractController
 
         return $this->render('images/edit.html.twig', [
             'image' => $image,
-            'form' => $form->createView(),
+            'form'  => $form->createView(),
         ]);
     }
 
@@ -100,7 +100,6 @@ class ImagesController extends AbstractController
             $entityManager->remove($image);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('images_index');
     }
 }
