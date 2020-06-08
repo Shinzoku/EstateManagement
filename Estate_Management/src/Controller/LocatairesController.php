@@ -75,7 +75,7 @@ class LocatairesController extends AbstractController
     /**
      * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Locataires $locataire): Response
+    public function edit(Request $request, Locataires $locataire, UserPasswordEncoderInterface $encoder): Response
     {
         $form = $this->createForm(LocatairesType::class, $locataire);
         $form->handleRequest($request);

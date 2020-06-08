@@ -52,9 +52,9 @@ class LocatairesRepository extends ServiceEntityRepository
     {
         $query = $this->getEntityManager()
             ->createQuery(
-                'SELECT email FROM App:Locataires l WHERE l.newsletter = 1'
+                'SELECT l.email FROM App:Locataires l WHERE l.newsletter = 1'
             );
-            
-        return $query;
+        
+        return $query->getResult();
     }
 }

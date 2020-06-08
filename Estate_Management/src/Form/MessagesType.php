@@ -33,11 +33,6 @@ class MessagesType extends AbstractType
                     'id' => 'message',
                     'class' => 'text ui-widget-content ui-corner-all w-100'
                     ]])
-            // ->add('activate')
-            // ->add('date_add')
-            // ->add('date_update')
-            // ->add('date_delete')
-            // ->add('biens')
         ;
     }
 

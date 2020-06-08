@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Biens;
 use App\Entity\Images;
 use App\Form\ImagesType;
 use App\Repository\ImagesRepository;

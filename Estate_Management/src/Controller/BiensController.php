@@ -4,20 +4,20 @@ namespace App\Controller;
 
 use App\Entity\Biens;
 use App\Entity\Images;
-use App\Entity\Messages;
-use App\Entity\HistoriqueLocations;
 use App\Form\BiensType;
+use App\Entity\Messages;
 use App\Form\MessagesType;
+use Symfony\Component\Mime\Email;
+use App\Entity\HistoriqueLocations;
 use App\Repository\BiensRepository;
+use Symfony\Component\Mime\Address;
 use App\Repository\ImagesRepository;
 use App\Repository\AdressesRepository;
 use App\Repository\LocatairesRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
-use Symfony\Component\Mime\Address;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -46,21 +46,24 @@ class BiensController extends AbstractController
         $form->remove('images');
         $form->handleRequest($request);
         
-        $mails = $LocatairesRepository->foundEmail()->getParameters();
+        $mails = $LocatairesRepository->foundEmail();
         
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($bien);
             $entityManager->flush();
 
-            $email = (new Email())
-                ->from(new Address('shinzoku62800@gmail.com', 'Estate Management'))
-                ->to(...$mails)
-                ->subject('Nouveauté sur Estate Management')
-                ->text('Il y a une nouvelle habitation qui a été ajouté. Venez vite voir!!!');
+            foreach ($mails as $key => $val) {
+                foreach ($val as $valu) {
+                    $email = (new Email())
+                    ->from(new Address('shinzoku62800@gmail.com', 'Estate Management'))
+                    ->to($valu)
+                    ->subject('Nouveauté sur Estate Management')
+                    ->text('Il y a une nouvelle habitation qui a été ajouté. Venez vite voir!!!');
                 
-            $mailer->send($email);
-            
+                    $mailer->send($email);
+                }
+            }
             return $this->redirectToRoute('biens_index');
         }
 
@@ -121,15 +124,33 @@ class BiensController extends AbstractController
     /**
      * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Biens $bien): Response
+    public function edit(Request $request, Biens $bien, MailerInterface $mailer, LocatairesRepository $LocatairesRepository): Response
     {
         $form = $this->createForm(BiensType::class, $bien);
         $form->remove('images')
             ->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        $mails = $LocatairesRepository->foundEmail();
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager()->flush();
+            
+            $statut = $bien->getStatuts();
+            
+            if ($statut == 0) {
+                foreach ($mails as $key => $val) {
+                    foreach ($val as $valu) {
+                        $email = (new Email())
+                        ->from(new Address('shinzoku62800@gmail.com', 'Estate Management'))
+                        ->to($valu)
+                        ->subject('Information sur Estate Management')
+                        ->text('Il y a une habitation qui est à nouveau disponible. Venez vite voir!!!');
+                    
+                        $mailer->send($email);
+                    }
+                }
+            }
+            
             return $this->redirectToRoute('biens_index');
         }
 
