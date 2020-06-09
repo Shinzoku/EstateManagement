@@ -35,11 +35,12 @@ class LocatairesController extends AbstractController
     {
         $locataire = new Locataires();
         $form = $this->createForm(LocatairesType::class, $locataire);
-        $form->handleRequest($request);
+        $form->remove('newsletter')
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            if (isset($_POST['password'])) {
+            if (isset($form['password'])) {
                 $hash = $encoder->encodePassword($locataire, $locataire->getPassword());
                 $locataire->setPassword($hash);
             }

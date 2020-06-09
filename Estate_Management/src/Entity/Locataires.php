@@ -98,7 +98,7 @@ class Locataires implements UserInterface
         $this->activate = 1;
         $this->date_add = new \DateTime();
         $this->date_update = new \DateTime();
-        $this->newsletter = 1;
+        $this->newsletter = 0;
     }
 
     public function getId(): ?int

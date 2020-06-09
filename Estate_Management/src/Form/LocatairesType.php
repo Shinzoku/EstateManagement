@@ -18,8 +18,18 @@ class LocatairesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('noms', TextType::class, ['attr' => ['placeholder' => 'ex: Pelut'], 'translation_domain' => false,])
-            ->add('prenoms', TextType::class, ['attr' => ['placeholder' => 'ex: Jean'], 'translation_domain' => false,])
+            ->add('noms', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'ex: Pelut',
+                ],
+                'translation_domain' => false,
+            ])
+            ->add('prenoms', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'ex: Jean',
+                ],
+                'translation_domain' => false,
+            ])
             ->add('date_de_naissances', BirthdayType::class, [
                 // prevents rendering it as type="date", to avoid HTML5 date pickers
                 'html5' => false,
@@ -27,12 +37,37 @@ class LocatairesType extends AbstractType
                 'format' => 'dd-MM-yyyy',
                 'translation_domain' => false,
             ])
-            ->add('lieu_de_naissances', TextType::class, ['attr' => ['placeholder' => 'ex: LIEVIN'], 'translation_domain' => false,])
-            ->add('email', EmailType::class, ['attr' => ['placeholder' => 'ex: exemple@email.com'], 'translation_domain' => false,])
-            ->add('telephones', TextType::class, ['attr' => ['placeholder' => 'ex: 06-56-45-31-20'], 'translation_domain' => false,])
-            ->add('situation_de_familles', TextType::class, ['attr' => ['placeholder' => 'ex: Célibataire, 1 enfant.'], 'translation_domain' => false,])
-            ->add('password', PasswordType::class, ['required' => false,])
-            ->add('newsletter', CheckboxType::class, ['required' => false,])
+            ->add('lieu_de_naissances', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'ex: LIEVIN',
+                ],
+                'translation_domain' => false,
+            ])
+            ->add('email', EmailType::class, [
+                'attr' => [
+                    'placeholder' => 'ex: exemple@email.com',
+                ],
+                'translation_domain' => false,
+            ])
+            ->add('telephones', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'ex: 06-56-45-31-20',
+                ],
+                'translation_domain' => false,
+            ])
+            ->add('situation_de_familles', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'ex: Célibataire, 1 enfant.',
+                ],
+                'translation_domain' => false,
+            ])
+            ->add('password', PasswordType::class, [
+                'required' => false,
+            ])
+            ->add('newsletter', CheckboxType::class, [
+                'required' => false,
+                'translation_domain' => false,
+            ])
         ;
     }
 

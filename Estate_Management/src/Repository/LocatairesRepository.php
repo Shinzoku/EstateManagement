@@ -57,4 +57,14 @@ class LocatairesRepository extends ServiceEntityRepository
         
         return $query->getResult();
     }
+
+    public function nbrInscrit()
+    {
+        $query = $this->getEntityManager()
+            ->createQuery(
+                'SELECT COUNT(l) FROM App:Locataires l'
+            );
+
+        return $query->getResult();
+    }
 }

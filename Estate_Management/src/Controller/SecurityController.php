@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\LocatairesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,8 +13,10 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="app_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, LocatairesRepository $locatairesRepository): Response
     {
+        $nbrInscrit = $locatairesRepository->NbrInscrit();
+        
         if ($this->getUser()) {
             return $this->redirectToRoute('accueil');
         }
@@ -23,7 +26,11 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('security/login.html.twig', [
+            'nbrInscrit' => $nbrInscrit[0][1],
+            'last_username' => $lastUsername,
+            'error'         => $error
+        ]);
     }
 
     /**

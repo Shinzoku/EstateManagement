@@ -39,6 +39,12 @@
                 </div>
                 <div>
                     <a href="{{path('app_forgot_password_request')}}" class="text-white text-bold">Mot de passe oublié ?</a>
+                    
+                </div>
+                <div>
+                    {% if nbrInscrit == 0 %}
+                        <a href="{{path('locataires_new')}}" class="text-white text-bold">Pour le premier utilisateur.</a>
+                    {% endif %}
                 </div>
             </form>
         </div>
