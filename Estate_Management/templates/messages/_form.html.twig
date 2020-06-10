@@ -1,18 +1,26 @@
-<small class="text-warning">Tous les champs sont requis.</small>
-<p class="text-white text-center">Nom du bien: {{ biens.noms }}</p>
+<small class="text-warning mb-4">Tous les champs sont requis.</small>
+<h2 class="text-center text-white">ENVOYER UN MESSAGE</h2>
+<p class="text-white text-center">Nom du bien:
+	{{ biens.noms }}</p>
 {{form_start(form, {'action': path('messages_new', { 'id': biens.id })})}}
 <div class="modal-content detailsBorder p-3">
-    <label class="text-white" for="email">Email:</label>
-    {{form_widget(form.emails)}}
-    <label class="text-white mt-3" for="objet">Objet:</label>
-    {{form_widget(form.objets)}}
-    <label class="text-white mt-3" for="message">Message:</label>
-    {{form_widget(form.demandes)}}
+	<label class="text-white" for="email">Email:</label>
+	{{form_widget(form.emails)}}
+	<label class="text-white mt-3" for="objet">Objet:</label>
+	{{form_widget(form.objets)}}
+	<label class="text-white mt-3" for="message">Message:</label>
+	{{form_widget(form.demandes)}}
 </div>
 <div class="text-right m-3">
-<div class="g-recaptcha" data-sitekey="your_site_key"></div>
-    <button class="btn btn-outline-light mt-3" type="submit">Envoyer le message</button>
-    <button type="button" class="btn btn-outline-light mt-3" data-dismiss="modal">Fermer</button>
+	{# <div class="g-recaptcha" data-sitekey="your_site_key"></div> #}
+	<div class="custom-control custom-switch text-left">
+		<input type="checkbox" class="custom-control-input p-3" id="customSwitch1">
+		<label class="custom-control-label" for="customSwitch1">I'm not a robot!!!</label>
+	</div>
+	<button id="btnSend" class="btn btn-outline-light mt-3" type="submit">Envoyer le message</button>
+	<button type="button" class="btn btn-outline-light mt-3" data-dismiss="modal">Fermer</button>
 </div>
 {{form_end(form)}}
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{# <script src="https://www.google.com/recaptcha/api.js" async defer></script> #} 
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="{{ asset('assets/js/myJS.js') }}"></script>
