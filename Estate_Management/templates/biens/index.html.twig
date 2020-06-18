@@ -5,6 +5,11 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center m-5 text-white">LISTE DES BIENS IMMOBILIER</h2>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
         <div>
             <table class="tableRaduis table table-hover table-dark text-center">
                 <thead>

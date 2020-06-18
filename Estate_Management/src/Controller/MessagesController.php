@@ -40,7 +40,7 @@ class MessagesController extends AbstractController
             $message->setBiens($biens);
             $entityManager->persist($message);
             $entityManager->flush();
-            
+            $this->addFlash('success', 'Message envoyé avec succès.');
             return $this->redirectToRoute('biens_show_public', ['id' => $biens->getid()]);
         }
 

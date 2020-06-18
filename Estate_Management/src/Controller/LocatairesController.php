@@ -46,7 +46,7 @@ class LocatairesController extends AbstractController
             }
             $entityManager->persist($locataire);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Ajout d\'un nouveau locataire avec succès.');
             return $this->redirectToRoute('locataires_index');
         }
 
@@ -91,6 +91,7 @@ class LocatairesController extends AbstractController
 
             $entityManager->persist($locataire);
             $entityManager->flush();
+            $this->addFlash('success', 'Modification du locataire effectué avec succès.');
             return $this->redirectToRoute('locataires_index');
         }
 

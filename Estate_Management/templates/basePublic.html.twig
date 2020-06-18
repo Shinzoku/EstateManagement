@@ -43,6 +43,11 @@
 				</div>
 			</header>
 		{% endblock %}
+		{% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
 		{% block carousel %}
 			<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 				<div class="carousel-inner">

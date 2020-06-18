@@ -52,6 +52,7 @@ class BiensController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($bien);
             $entityManager->flush();
+            $this->addFlash('success', 'Votre Bien a été ajouté avec succès.');
 
             foreach ($mails as $key => $val) {
                 foreach ($val as $valu) {
@@ -133,8 +134,8 @@ class BiensController extends AbstractController
         $mails = $LocatairesRepository->foundEmail();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager()->flush();
-            
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Modification du Bien effectué avec succès.');
             $statut = $bien->getStatuts();
             
             if ($statut == 0) {
@@ -196,6 +197,11 @@ class BiensController extends AbstractController
             
             // On boucle sur les images
             foreach ($images as $image) {
+                $mimeType = $image->getMimeType();
+                if ($mimeType !== 'image/jpeg' && $mimeType !==  'image/png' && $mimeType !== 'image/tiff' && $mimeType !==  'image/webp' && $mimeType !== 'image/jpg') {
+                    $this->addFlash('alerte', 'Veuillez choisir des images valides.');
+                    return $this->redirectToRoute('biens_images_new', ['id' => $biens->getId()]);
+                }
                 // On génère un nouveau nom de fichier
                 $fichier = md5(uniqid()).'.'.$image->guessExtension();
                 // On copie le fichier dans le dossier uploads

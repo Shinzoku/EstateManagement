@@ -59,7 +59,7 @@ class ImagesController extends AbstractController
             $image->setNoms($newFilename);
             $entityManager->persist($image);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Ajout d\'image avec succès.');
             return $this->redirectToRoute('images_index');
         }
 
@@ -79,7 +79,7 @@ class ImagesController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
+            $this->addFlash('success', 'Modification de l\'image avec succès');
             return $this->redirectToRoute('images_index');
         }
 
