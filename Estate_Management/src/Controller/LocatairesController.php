@@ -40,7 +40,7 @@ class LocatairesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            if (isset($form['password'])) {
+            if (isset($_POST['password'])) {
                 $hash = $encoder->encodePassword($locataire, $locataire->getPassword());
                 $locataire->setPassword($hash);
             }

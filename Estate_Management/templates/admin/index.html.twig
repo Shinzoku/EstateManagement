@@ -2,4 +2,10 @@
 
 {% block title %}Accueil{% endblock %}
 
-{% block body %}{% endblock %}
+{% block body %}
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <div class="js-locataires-data" data-locatairesData="{{ locatairesData|json_encode|e('html_attr') }}"></div>
+	<div class="chartGraphLoc mx-auto mt-5 mb-5 p-3">
+		<canvas id="myChart"></canvas>
+	</div>
+{% endblock %}

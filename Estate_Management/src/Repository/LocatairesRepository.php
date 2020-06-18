@@ -67,4 +67,14 @@ class LocatairesRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
+    public function locatairesDataChart()
+    {
+        $qb = $this->createQueryBuilder('l')
+            ->select("COUNT(l) locataire, DATE_FORMAT(l.date_add, '%m/%Y') mois")
+            ->where('YEAR(l.date_add) = 2020')
+            ->groupBy('mois')
+        ;
+        return $qb->getQuery()->getResult();
+    }
 }

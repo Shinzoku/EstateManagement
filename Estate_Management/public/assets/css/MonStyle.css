@@ -40,6 +40,11 @@ th {
     background-color: #666666;
 }
 
+.chartGraphLoc {
+    background-color: #fff;
+    width: 70%;
+}
+
 @media screen and (max-width: 420px) {
     .formBorder {
         width: 100%;

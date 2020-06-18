@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request; // Nous avons besoin d'accéder à
 class PublicController extends AbstractController
 {
     /**
-     * @Route("/accueil/public", name="accueil_public", methods={"GET","POST"})
+     * @route("/"), name="accueil_public", methods={"GET","POST"})
      */
     public function index(Request $request, PaginatorInterface $paginator, BiensRepository $repository, ImagesRepository $imagesRepository): Response
     {

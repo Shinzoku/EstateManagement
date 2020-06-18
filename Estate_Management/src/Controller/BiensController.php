@@ -193,7 +193,7 @@ class BiensController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $images = $form->get('images')->getData(); // On récupère les images transmises
-            //dd($images);
+            
             // On boucle sur les images
             foreach ($images as $image) {
                 // On génère un nouveau nom de fichier
