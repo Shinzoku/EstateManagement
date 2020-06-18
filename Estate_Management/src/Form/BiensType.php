@@ -12,7 +12,6 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class BiensType extends AbstractType
@@ -45,18 +44,6 @@ class BiensType extends AbstractType
                 // every time you edit the Product details
                 'required' => false,
                 'multiple' => true,
-
-                // unmapped fields can't define their validation using annotations
-                // in the associated entity, so you can use the PHP constraint classes
-                    // 'constraints' => [
-                    //     new File([
-                    //         'maxSize' => '1000M',
-                    //         'mimeTypes' => [
-                    //             'image/*',
-                    //         ],
-                    //         'mimeTypesMessage' => 'Please upload a valid Picture',
-                    //     ])
-                    // ],
             ])
         ;
     }

@@ -2,25 +2,17 @@
 
 namespace App\Form;
 
-use Doctrine\ORM\EntityRepository;
 use App\Entity\HistoriqueLocations;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class HistoriqueLocationsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            // ->add('activate')
-            // ->add('date_add')
-            // ->add('date_update')
-            // ->add('date_delete')
-            // ->add('locataires')
             ->add('biens', EntityType::class, [
                 'class' => 'App:Biens',
                 'choice_label' => 'noms',

@@ -5,6 +5,7 @@
 {% block body %}
     <div class="container">
         <h2 class="text-center m-5 text-white">AJOUTER UN LOCATAIRE</h2>
+
         {{form_start(form)}}
         <div class="formBorder border border-dark p-3 mx-auto w-50">
             <div class="form-group">
@@ -26,6 +27,9 @@
             <div class="form-group">
                 <label class="text-white" for="email">E-mail:</label>
                 {{form_widget(form.email)}}
+                <div class="errorEmailMessage border border-danger p-1 mt-1">
+                {{ form_errors(form.email) }}
+                </div>
             </div>
             <div class="form-group">
                 <label class="text-white" for="phone">Téléphone:</label>

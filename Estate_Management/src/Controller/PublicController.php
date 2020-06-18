@@ -3,16 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Locataires;
-use App\Form\LocatairesType;
 use App\Entity\PropertySearch;
+use App\Form\LocatairesType;
 use App\Form\PropertySearchType;
 use App\Repository\BiensRepository;
 use App\Repository\ImagesRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Knp\Component\Pager\PaginatorInterface; // Nous appelons le bundle KNP Paginator
 use Symfony\Component\HttpFoundation\Request; // Nous avons besoin d'accéder à la requête pour obtenir le numéro de page
+use Knp\Component\Pager\PaginatorInterface; // Nous appelons le bundle KNP Paginator
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PublicController extends AbstractController
 {

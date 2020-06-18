@@ -6,9 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LocatairesRepository")
+ * @UniqueEntity({"email"}, message="Cette email est déjà utilisé.")
  */
 class Locataires implements UserInterface
 {
@@ -40,7 +43,8 @@ class Locataires implements UserInterface
     private $lieu_de_naissances;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
+     *@Assert\Email
      */
     private $email;
 

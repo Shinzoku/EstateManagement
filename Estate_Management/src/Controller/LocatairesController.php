@@ -3,15 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Locataires;
-use App\Form\LocatairesType;
 use App\Entity\HistoriqueLocations;
+use App\Form\LocatairesType;
 use App\Repository\BiensRepository;
 use App\Repository\LocatairesRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/locataires", name="locataires_")
@@ -34,17 +34,26 @@ class LocatairesController extends AbstractController
     public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         $locataire = new Locataires();
+        //créer un formulaire en utilisant le form RegistrationType avec l'objet Locataires
         $form = $this->createForm(LocatairesType::class, $locataire);
+        //retire le champ 'newsletter' car pas nessessaire dans le cas présent
         $form->remove('newsletter')
+            //annalyse des champs avec handleRequest
             ->handleRequest($request);
 
+        /*l'enregistrement dans la base de donnée */
+        //si le formulaire est submit ET valide
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             if (isset($_POST['password'])) {
+                // encode le mot de passe de l'objet locataires et lit la colonne password
                 $hash = $encoder->encodePassword($locataire, $locataire->getPassword());
+                //change la valeur dans colonne password
                 $locataire->setPassword($hash);
             }
+            //le faire persister dans le temps, c'est une prépation pour la requête SQl
             $entityManager->persist($locataire);
+            //enregistrement véritable de la requete SQl. On met les données dans la table
             $entityManager->flush();
             $this->addFlash('success', 'Ajout d\'un nouveau locataire avec succÃ¨s.');
             return $this->redirectToRoute('locataires_index');

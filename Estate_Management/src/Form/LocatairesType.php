@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Locataires;
-use Shinzoku\RecaptchaBundle\Type\RecaptchaSubmitType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

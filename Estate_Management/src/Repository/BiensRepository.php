@@ -21,7 +21,6 @@ class BiensRepository extends ServiceEntityRepository
         parent::__construct($registry, Biens::class);
     }
 
-
     /**
      * Undocumented function
      *
