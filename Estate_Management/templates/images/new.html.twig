@@ -14,7 +14,7 @@
                     <div class="text-right mt-4">
                     <button class="btn btn-outline-light">{{ button_label|default('AJOUTER') }}</button>
                     </div>
-                {{ form_end(form) }}
+                {{ form_end(form, {'render_rest': false}) }}
             </div>
         </div>
     </div>

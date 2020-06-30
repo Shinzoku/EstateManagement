@@ -11,7 +11,6 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-
         // create 20 Adresses! Bam!
         for ($i = 0; $i < 20; $i++) {
             $ruesVille = chr(mt_rand(65, 90));

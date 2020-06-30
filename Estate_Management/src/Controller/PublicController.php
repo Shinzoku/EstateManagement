@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PublicController extends AbstractController
 {
     /**
-     * @route("/"), name="accueil_public", methods={"GET","POST"})
+     * @route("/accueil"), name="accueil_public", methods={"GET","POST"})
      */
     public function index(Request $request, PaginatorInterface $paginator, BiensRepository $repository, ImagesRepository $imagesRepository): Response
     {
@@ -83,13 +83,7 @@ class PublicController extends AbstractController
     {
         $locataire = new Locataires();
         $form = $this->createForm(LocatairesType::class, $locataire);
-        $form->remove('date_de_naissances')
-            ->remove('lieu_de_naissances')
-            ->remove('telephones')
-            ->remove('situation_de_familles')
-            ->remove('password')
-            ->remove('newsletter')
-            ->handleRequest($request);
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();

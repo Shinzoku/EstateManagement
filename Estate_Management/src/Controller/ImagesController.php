@@ -34,10 +34,7 @@ class ImagesController extends AbstractController
     {
         $image = new Images();
         $form = $this->createForm(ImagesType::class, $image);
-        $form->remove('alt')
-            ->remove('width')
-            ->remove('height')
-            ->handleRequest($request);
+        $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get('noms')->getData();
@@ -75,7 +72,6 @@ class ImagesController extends AbstractController
     public function edit(Request $request, Images $image): Response
     {
         $form = $this->createForm(ImagesType::class, $image);
-        $form->remove('noms');
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();

@@ -51,12 +51,8 @@
 		{% block carousel %}
 			<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 				<div class="carousel-inner">
-
-					<div class="carousel-item active">
-						<img src="{{ asset('assets/uploaded/' ~ images[1].noms) }}" class="d-block" width="{{images[1].width}}" height="{{images[1].height}}" alt="{{images[1].alt}}">
-					</div>
 					{% for image in images %}
-						<div class="carousel-item">
+						<div class="carousel-item {% if loop.index == 1%} active {% endif %}">
 							<img src="{{ asset('assets/uploaded/' ~ image.noms) }}" class="d-block" width="{{image.width}}" height="{{image.height}}" alt="{{image.alt}}">
 						</div>
 					{% endfor %}

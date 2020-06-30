@@ -36,10 +36,7 @@ class LocatairesController extends AbstractController
         $locataire = new Locataires();
         //créer un formulaire en utilisant le form RegistrationType avec l'objet Locataires
         $form = $this->createForm(LocatairesType::class, $locataire);
-        //retire le champ 'newsletter' car pas nessessaire dans le cas présent
-        $form->remove('newsletter')
-            //annalyse des champs avec handleRequest
-            ->handleRequest($request);
+        $form->handleRequest($request);
 
         /*l'enregistrement dans la base de donnée */
         //si le formulaire est submit ET valide

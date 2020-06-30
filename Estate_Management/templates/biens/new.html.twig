@@ -59,7 +59,7 @@
                 {{form_widget(form.ajouter, {'label': 'AJOUTER', 'attr': {'class': 'btn btn-outline-light'}})}}
             </div>
         </div>
-        {{form_end(form)}}
+        {{form_end(form, {'render_rest': false})}}
         <div class="text-center mt-5 mb-5">
             <a href="{{ path('biens_index') }}" class="btn btn-dark">← Retour à la liste</a>
         </div>

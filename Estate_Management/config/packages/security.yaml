@@ -38,7 +38,7 @@ security:
     access_control:
         - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/reset-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/accueil/public, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/biens/public, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/messages/new, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/locataires/new, roles: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -27,7 +27,7 @@
             <div class="form-group">
                 <label class="text-white" for="email">E-mail:</label>
                 {{form_widget(form.email)}}
-                <div class="errorEmailMessage border border-danger p-1 mt-1">
+                <div class="errorEmailMessage {% if form_errors(form.email) == true %} border border-danger p-1 mt-1 {% endif %}">
                 {{ form_errors(form.email) }}
                 </div>
             </div>
@@ -47,7 +47,7 @@
                 <button type="submit" class="btn btn-outline-light mt-4">AJOUTER</button>
             </div>
         </div>
-        {{form_end(form)}}
+        {{form_end(form, {'render_rest': false})}}
         <div class="text-center mt-5 mb-5">
             <a href="{{ path('locataires_index') }}" class="btn btn-dark">← Retour à la liste</a>
         </div>

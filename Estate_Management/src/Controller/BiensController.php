@@ -43,7 +43,6 @@ class BiensController extends AbstractController
     {
         $bien = new Biens();
         $form = $this->createForm(BiensType::class, $bien);
-        $form->remove('images');
         $form->handleRequest($request);
         
         $mails = $LocatairesRepository->foundEmail();
@@ -181,16 +180,7 @@ class BiensController extends AbstractController
     public function addNewImages(Request $request, Biens $biens): Response
     {
         $form = $this->createForm(BiensType::class, $biens);
-        $form->remove('noms')
-            ->remove('descriptions')
-            ->remove('nbr_pieces')
-            ->remove('nbr_chambres')
-            ->remove('surfaces')
-            ->remove('loyers')
-            ->remove('statuts')
-            ->remove('Adresses')
-            ->remove('ajouter')
-            ->handleRequest($request);
+        $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
             $images = $form->get('images')->getData(); // On récupère les images transmises
