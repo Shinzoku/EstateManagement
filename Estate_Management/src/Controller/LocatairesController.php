@@ -36,7 +36,8 @@ class LocatairesController extends AbstractController
         $locataire = new Locataires();
         //créer un formulaire en utilisant le form RegistrationType avec l'objet Locataires
         $form = $this->createForm(LocatairesType::class, $locataire);
-        $form->handleRequest($request);
+        $form->remove('newsletter')
+            ->handleRequest($request);
 
         /*l'enregistrement dans la base de donnée */
         //si le formulaire est submit ET valide
@@ -48,9 +49,9 @@ class LocatairesController extends AbstractController
                 //change la valeur dans colonne password
                 $locataire->setPassword($hash);
             }
-            //le faire persister dans le temps, c'est une prépation pour la requête SQl
+            //le faire persister dans le temps, c'est une prépation pour la requête SQL
             $entityManager->persist($locataire);
-            //enregistrement véritable de la requete SQl. On met les données dans la table
+            //enregistrement véritable de la requete SQL. On met les données dans la table
             $entityManager->flush();
             $this->addFlash('success', 'Ajout d\'un nouveau locataire avec succÃ¨s.');
             return $this->redirectToRoute('locataires_index');

@@ -1,75 +1,79 @@
 <!DOCTYPE html>
 <html lang="fr">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block stylesheets %}
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{asset('assets/css/MonStyle.css')}}">
-    {% endblock %}
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		{% block stylesheets %}
+			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+			<link rel="stylesheet" href="{{asset('assets/css/MonStyle.css')}}">
+		{% endblock %}
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+	</head>
+</html>
 <html>
-    <body>
-        {% block header %}
-        <header>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col text-sm-center text-lg-left">
-                        <figure>
-                            <img class="logo" src="{{asset('assets/img/logo.png')}}" alt="Logo">
-                        </figure>
-                    </div>
-                    <div class="col m-auto">
-                        <h1 class="text-center">GESTION IMMOBILIERE LIEVINOISE</h1>
-                    </div>
-                    <div class="col align-self-end">
-                        <div class="row justify-content-end">
-                        {% if app.user %}
-                            <a href="{{ path('app_logout') }}" class="btn btn-outline-light mr-3 mb-3">Déconnexion</a>
-                            {% else %}
-                            <a href="{{ path('app_login') }}" class="btn btn-outline-light mr-3 mb-3">Connexion</a>
-                        {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        {% endblock %}
-        {% block menu %}
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" href="#"></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0 mx-auto">
-                        <li class="borderHover nav-item active mr-5 ml-5 pr-3 pl-3">
-                            <a class="amenu nav-link" href="{{ path('accueil') }}">Accueil</a>
-                        </li>
-                        <li class="borderHover nav-item mr-5 ml-5 pr-3 pl-3">
-                            <a class="amenu nav-link" href="{{ path('biens_index') }}">Liste des biens immobilier</a>
-                        </li>
-                        <li class="borderHover nav-item mr-5 ml-5 pr-3 pl-3">
-                            <a class="amenu nav-link" href="{{ path('locataires_index') }}">Liste des locataires</a>
-                        </li>
-                        <li class="borderHover nav-item mr-5 ml-5 pr-3 pl-3">
-                            <a class="amenu nav-link" href="{{ path('images_index') }}">Carousel</a>
-                        </li>
-                        <li class="borderHover nav-item mr-5 ml-5 pr-3 pl-3">
-                            <a class="amenu nav-link" href="{{ path('messages_index') }}">Messages</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        {% endblock %}
-        {% block body %}{% endblock %}
-        {% block javascripts %}
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>        
-        <script type="text/javascript" src="{{ asset('assets/js/myJS.js') }}"></script>
-        {% endblock %}
-    </body>
+	<body>
+		{% block header %}
+			<header>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col text-sm-center text-lg-left">
+							<figure>
+								<img class="logo" src="{{asset('assets/img/logo.png')}}" alt="Logo">
+							</figure>
+						</div>
+						<div class="col m-auto">
+							<h1 class="text-center">GESTION IMMOBILIERE LIEVINOISE</h1>
+						</div>
+						<div class="col align-self-end">
+							<div class="row justify-content-end">
+								{% if app.user %}
+									<a href="{{ path('app_logout') }}" class="btn btn-outline-light mr-3 mb-3">Déconnexion</a>
+								{% else %}
+									<a href="{{ path('app_login') }}" class="btn btn-outline-light mr-3 mb-3">Connexion</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+		{% endblock %}
+		{% block menu %}
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+				<a class="navbar-brand" href="#"></a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+					<ul class="navbar-nav mr-auto mt-2 mt-lg-0 mx-auto">
+						<li class="borderHover nav-item active mr-5 ml-5 pr-3 pl-3">
+							<a class="amenu nav-link" href="{{ path('accueil') }}">Accueil</a>
+						</li>
+						<li class="borderHover nav-item mr-5 ml-5 pr-3 pl-3">
+							<a class="amenu nav-link" href="{{ path('biens_index') }}">Liste des biens immobilier</a>
+						</li>
+						<li class="borderHover nav-item mr-5 ml-5 pr-3 pl-3">
+							<a class="amenu nav-link" href="{{ path('locataires_index') }}">Liste des locataires</a>
+						</li>
+						<li class="borderHover nav-item mr-5 ml-5 pr-3 pl-3">
+							<a class="amenu nav-link" href="{{ path('images_index') }}">Carousel</a>
+						</li>
+						<li class="borderHover nav-item mr-5 ml-5 pr-3 pl-3">
+							<a class="amenu nav-link" href="{{ path('messages_index') }}">Messages</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		{% endblock %}
+		{% block body %}{% endblock %}
+		{% block javascripts %}
+			<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+			<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+			<script type="text/javascript" src="{{ asset('assets/js/myJS.js') }}"></script>
+		{% endblock %}
+	</body>
 </html>

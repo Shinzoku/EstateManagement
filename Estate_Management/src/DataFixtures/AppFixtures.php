@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Biens;
 use App\Entity\Adresses;
+use App\Entity\Locataires;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -11,7 +12,7 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        // create 20 Adresses! Bam!
+        // Avec une boucle limité à 20 me créera 20 biens et adresse
         for ($i = 0; $i < 20; $i++) {
             $ruesVille = chr(mt_rand(65, 90));
             $adresse = new Adresses();
@@ -39,6 +40,18 @@ class AppFixtures extends Fixture
             
             $manager->persist($adresse);
             $manager->persist($bien);
+        }
+        //Avec une boucle limité à 9 me créera 9 locataires
+        for ($i = 1; $i <= 9; $i++) {
+            $nomPrenom = chr(mt_rand(65, 90));
+            $locataire = new Locataires();
+
+            $locataire->setNoms($nomPrenom);
+            $locataire->setPrenoms($nomPrenom);
+            $locataire->setEmail($nomPrenom.$nomPrenom.'@gmail.com');
+            $locataire->setNewsletter(0);
+
+            $manager->persist($locataire);
         }
         $manager->flush();
     }

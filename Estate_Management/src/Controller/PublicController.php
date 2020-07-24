@@ -26,7 +26,7 @@ class PublicController extends AbstractController
         $form->handleRequest($request);
 
         $biens = $paginator->paginate(
-            $repository->findAllVisibleQuery($search), // Requête contenant les données à paginer (ici nos articles)
+            $repository->findAllVisibleQuery($search), // Requête contenant les données à paginer (ici nos biens)
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
             6 // Nombre de résultats par page
         );
@@ -96,6 +96,26 @@ class PublicController extends AbstractController
         return $this->render('public/newsletter.html.twig', [
             'images' => $imagesRepository->findBy(['biens' => null]),
             'form'   => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/mentions_legales", name="mentions_legales", methods={"GET"})
+     */
+    public function mentionsLegales(ImagesRepository $imagesRepository)
+    {
+        return $this->render('public/mentions_legales.html.twig', [
+            'images' => $imagesRepository->findBy(['biens' => null]),
+        ]);
+    }
+
+    /**
+     * @Route("/a_propos_de_nous", name="a_propos_de_nous", methods={"GET"})
+     */
+    public function aProposDeNous(ImagesRepository $imagesRepository)
+    {
+        return $this->render('public/a_propos_de_nous.html.twig', [
+            'images' => $imagesRepository->findBy(['biens' => null]),
         ]);
     }
 }

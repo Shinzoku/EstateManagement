@@ -78,9 +78,7 @@ class Biens
      * @ORM\JoinColumn(nullable=false)
      */
     private $Adresses;
-
     
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\HistoriqueLocations", mappedBy="biens")
      */

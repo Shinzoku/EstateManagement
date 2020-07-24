@@ -22,8 +22,6 @@ class BiensRepository extends ServiceEntityRepository
     }
 
     /**
-     * Undocumented function
-     *
      * @param PropertySearch $search
      * @return Query
      */

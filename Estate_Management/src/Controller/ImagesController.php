@@ -34,7 +34,10 @@ class ImagesController extends AbstractController
     {
         $image = new Images();
         $form = $this->createForm(ImagesType::class, $image);
-        $form->handleRequest($request);
+        $form->remove('alt')
+            ->remove('width')
+            ->remove('height')
+            ->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get('noms')->getData();

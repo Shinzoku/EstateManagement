@@ -1,0 +1,58 @@
+{% extends "basePublic.html.twig" %}
+
+{% block title %}A propos de nous{% endblock %}
+
+{% block body %}
+	<div class="text-center my-5">
+		<h2>Qui sommes nous ?</h2>
+	</div>
+	<div class="container-fluid">
+		<div>
+			<h3 class="text-center mt-5">Le propriétaire</h3>
+			<div class="row">
+				<div class="col-lg-4 mt-5 text-right">
+					<img src="{{ asset('assets/img/mysterieux.jpg') }}" class="dev img-fluid mt-5" width="180" height="180"/>
+				</div>
+				<div class="col-lg-7">
+					<div class="col-lg-8 mt-5 mb-5">
+						<div class="ml-4 text-center mb-5">
+							<h4 class="nom">Le formateur</h4>
+						</div>
+						<div class="ml-4 text-justify">
+							<div><span class="font-weight-bold">Nom: </span><span>??????</span></div>							
+							<div><span class="font-weight-bold">Prénom: </span><span>??????</span></div>							
+							<div><span class="font-weight-bold">Age: </span><span>?? ans</span></div>							
+							<div><span class="font-weight-bold">Métier: </span><span>Formateur</span></div>							
+							<div><span class="font-weight-bold">Descriptif: </span>
+                            <span>Formateur dans le développeur depuis peu, j'ai demandé au jeune développeur Nicolas de me faire une application pour gérer mes biens.</span></div>
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<h3 class="text-center mt-5">Le Développeur</h3>
+			<div class="row">
+				<div class="col-lg-4 mt-5 text-right">
+					<img src="{{ asset('assets/img/Avatarnico.jpg') }}" class="dev img-fluid mt-5 mb-5"/>
+				</div>
+				<div class="col-lg-7">
+					<div class="col-lg-8 mt-5 mb-5 ">
+						<div class="ml-4 text-center mb-5">
+							<h4 class="nom">Nicolas Bernon</h4>
+						</div>
+						<div class="ml-4 text-justify mt-4">
+							<div><span class="font-weight-bold">Nom: </span><span>Bernon</span></div>							
+							<div><span class="font-weight-bold">Prénom: </span><span>Nicolas</span></div>							
+							<div><span class="font-weight-bold">Date de Naissance: </span><span>2 juillet 1982</span></div>							
+							<div><span class="font-weight-bold">Métier: </span><span>Développeur Web et Web Mobile en formation</span></div>							
+							<div><span class="font-weight-bold">Descriptif: </span>
+							<span>Développeur en formation depuis peu, mon formation ma demandé de réaliser un site web qui lui permettra de gérer ses biens. J'aime la lecture de mangas,les animations japonaise et l'informatique.</span></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
