@@ -5,8 +5,8 @@ namespace App\DataFixtures;
 use App\Entity\Biens;
 use App\Entity\Adresses;
 use App\Entity\Locataires;
+use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
 
 class AppFixtures extends Fixture
 {
@@ -41,6 +41,7 @@ class AppFixtures extends Fixture
             $manager->persist($adresse);
             $manager->persist($bien);
         }
+        
         //Avec une boucle limité à 9 me créera 9 locataires
         for ($i = 1; $i <= 9; $i++) {
             $nomPrenom = chr(mt_rand(65, 90));
